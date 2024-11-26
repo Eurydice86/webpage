@@ -1,6 +1,9 @@
 body {
-  background-color: #bfd8d1;
+    background-color: #bfd8d1;
+    font-family: 'Merriweather';
+    background-image: url("ehms_logo.png")
 }
+
 h1 {
   color: #2b374b;
 }

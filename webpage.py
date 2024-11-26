@@ -8,6 +8,9 @@ pages = ["presences.html", "schedule.html"]
 
 
 class CyclingWebPage(SimpleHTTPRequestHandler):
+    def log_message(self, format, *args):
+        pass
+    
     def do_GET(self):
         if self.path == "/":  # Root path
             # Determine which page to serve based on the current time
