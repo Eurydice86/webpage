@@ -1,8 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Merriweather)
-
 body {
+	font-family: Merriweather;
     background-color: #bfd8d1;
-    font-family: 'Merriweather', serif;
     background-image: url("ehms_logo.png")
 }
 
