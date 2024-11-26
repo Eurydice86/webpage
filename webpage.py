@@ -10,7 +10,7 @@ pages = ["presences.html", "schedule.html"]
 class CyclingWebPage(SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
-    
+
     def do_GET(self):
         if self.path == "/":  # Root path
             # Determine which page to serve based on the current time
@@ -26,11 +26,15 @@ class CyclingWebPage(SimpleHTTPRequestHandler):
                 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 with open("weekly_schedule.html", "r") as file:
                     weekly_schedule = file.read()
+                with open("news.html", "r") as file:
+                    news = file.read()
                 html_content = html_content.replace(
-                    '<p>The schedule will be displayed here dynamically.</p>',
-                    f'{weekly_schedule}'
+                    "<p>The schedule will be displayed here dynamically.</p>",
+                    f"{weekly_schedule}",
                 )
-
+                html_content = html_content.replace(
+                    "<p>The news will be displayed here dynamically.</p>", f"{news}"
+                )
 
                 # Send the HTTP response
                 self.send_response(200)
@@ -75,6 +79,7 @@ def run(server_class=HTTPServer, handler_class=CyclingWebPage, port=8000):
     httpd = server_class(server_address, handler_class)
     print(f"Serving on port {port}...")
     httpd.serve_forever()
+
 
 if __name__ == "__main__":
     run()
