@@ -20,6 +20,13 @@ class CyclingWebPage(SimpleHTTPRequestHandler):
                 with open(page_to_serve, "r", encoding="utf-8") as file:
                     html_content = file.read()
 
+                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                html_content = html_content.replace(
+                    '<p>The current server time will be displayed here dynamically.</p>',
+                    f'<p>The current server time is: <span class="time">{current_time}</span></p>'
+                )
+
+
                 # Send the HTTP response
                 self.send_response(200)
                 self.send_header("Content-type", "text/html")
