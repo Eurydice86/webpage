@@ -24,9 +24,11 @@ class CyclingWebPage(SimpleHTTPRequestHandler):
                     html_content = file.read()
 
                 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                with open("weekly_schedule.html", "r") as file:
+                    weekly_schedule = file.read()
                 html_content = html_content.replace(
-                    '<p>The current server time will be displayed here dynamically.</p>',
-                    f'<p>The current server time is: <span class="time">{current_time}</span></p>'
+                    '<p>The schedule will be displayed here dynamically.</p>',
+                    f'{weekly_schedule}'
                 )
 
 

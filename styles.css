@@ -8,5 +8,6 @@ h1 {
   color: #2b374b;
 }
 p {
-  color: black;
+    font-size: 15px;
+    color: black;
 }
