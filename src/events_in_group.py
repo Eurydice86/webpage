@@ -1,7 +1,7 @@
 import requests
 import json
 import datetime
-import event
+from src import event
 
 import os
 

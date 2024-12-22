@@ -1,11 +1,10 @@
-import groups
+from src import groups
+from src import instructor
 
 import datetime
 import requests
 import json
 import os
-
-import instructor
 
 from dotenv import load_dotenv
 
@@ -43,5 +42,6 @@ def instructors_info(group):
 
 if __name__ == "__main__":
     instructors = instructors_info("38874")
+    
     for i in instructors:
         print(json.dumps(i, indent=2))

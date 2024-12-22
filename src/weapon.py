@@ -1,6 +1,6 @@
-import upcoming_events
-import instructors
-import news
+from src import upcoming_events
+from src import instructors
+from src import news
 import json
 
 
@@ -34,7 +34,7 @@ def weapon_to_tag(weapon):
 
 def get_weapon_info(weapon):
     group = weapon_to_group(weapon)
-    weapon_events = upcoming_events.upcoming_events(group, days=7)
+    weapon_events = upcoming_events.upcoming_events(group, days=14)
     weapon_instructors = instructors.instructors_info(group)
 
     tag = weapon_to_tag(weapon)
@@ -58,11 +58,17 @@ def write_weapon_info(weapon):
 
     json_out = json.dumps(events_news_dict, indent=4)
 
-    filename = "../data/" + weapon.replace(" ", "-") + ".json"
+    filename = "data/" + weapon.replace(" ", "-") + ".json"
     with open(filename, "w") as output_file:
         output_file.write(json_out)
 
 
-if __name__ == "__main__":
-    write_weapon_info("German Longsword")
+def all_weapons():
     write_weapon_info("Bolognese Sidesword")
+    write_weapon_info("Gekiken")
+    write_weapon_info("Messer")
+    write_weapon_info("Wrestling")
+    write_weapon_info("German Longsword")
+    write_weapon_info("Sabre")
+    write_weapon_info("Rapier")
+    

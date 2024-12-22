@@ -9,12 +9,13 @@ load_dotenv()
 def board():
 
     board_members = {
-        "chair": "337",
-        "vice_chair": "347",
-        "treasurer": "101",
-        "secretary": "882",
-        "member": ["447", "100"],
-        "substitute_member": ["782"],
+        "Chair": "337",
+        "Vice Chair": "347",
+        "Treasurer": "101",
+        "Secretary": "882",
+        "Member": ["100"],
+        "Substitute Member": ["782", "447"],
+        "Equality and Harrassment Contact": ["718"]
     }
 
     myclub_token = os.getenv("MC_TOKEN")
@@ -29,18 +30,30 @@ def board():
             full_url = base_url + member_url
             member = json.loads(requests.get(full_url, headers=headers).content)
             member = member["member"]
-            board_roles.append({"member": member, "role": role})
+            board_roles.append({"role": role, "member_details": member})
         else:
             for i in id:
                 member_url = f"members/{i}"
                 full_url = base_url + member_url
                 member = json.loads(requests.get(full_url, headers=headers).content)
                 member = member["member"]
-                board_roles.append({"member": member, "role": role})
+                board_roles.append({"role": role, "member_details": member, })
 
     return board_roles
 
 
+def write_board_info():
+
+    board_roles = board()
+
+    output_dict = {"board_members": board()}
+
+    json_out = json.dumps(output_dict, indent=4)
+
+    filename = "data/board.json"
+    with open(filename, "w") as output_file:
+        output_file.write(json_out)
+
+
 if __name__ == "__main__":
-    for i in board():
-        print(json.dumps(i.get("member").get("avatars").get("original"), indent=2))
+    write_board_info()

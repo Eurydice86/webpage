@@ -1,6 +1,6 @@
-import groups
-import events_in_group
-import event
+from src import groups
+from src import events_in_group
+from src import event
 
 import datetime
 import requests

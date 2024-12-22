@@ -1,4 +1,4 @@
-import upcoming_events
+from src import upcoming_events
 import json
 
 
@@ -13,17 +13,17 @@ def get_competitions():
 
     return comps
 
-def write_comps():
+def write_competitions():
 
     comps = get_competitions()
     comps_dict = {"competitions": comps}
 
     json_out = json.dumps(comps_dict, indent=4)
 
-    filename = "../data/competitions.json"
+    filename = "data/competitions.json"
     with open(filename, "w") as output_file:
         output_file.write(json_out)
 
 
 if __name__ == "__main__":
-    write_comps()
+    write_competitionts()
