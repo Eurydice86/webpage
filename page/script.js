@@ -1,4 +1,4 @@
-const jsonFiles = ["../data/board.json", "../data/Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Wrestling.json", "../data/German-Longsword.json", "../data/Sabre.json", "../data/Rapier.json"];
+const jsonFiles = ["../data/board.json", "../data/competitions.json", "../data/Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Wrestling.json", "../data/German-Longsword.json", "../data/Sabre.json", "../data/Rapier.json"];
 let currentIndex = 0; // Tracks which JSON file to update next
 
 // Function to fetch and update a single JSON file
@@ -30,15 +30,21 @@ function updateContent(data, index) {
 
 
     case 0: // Structure for board page
-        content += `<h1>EHMS Board</strong></h1>`;
-	members = Object.entries(data.board_members)
-
-	members.forEach((element, index, array) => {
-	    for (const [key, value] of element.entries(data.member_details)) {
-		content += `<p>${key}:  ${value}</p>`
-	    }
-	});
+        content += `<h1>EHMS Board</h1>`;
 	break;
+
+    case 1: // Structure for competitions page
+        content += `<h1>Upcoming events and competitions (next 6 months)</strong></h1>`;
+	for (const [key, value] of Object.entries(data.competitions)) {
+	    const start_date = Date.parse(value.starts_at);
+	    const end_date = Date.parse(value.ends_at);
+	    s_date = new Date(start_date).toDateString();
+	    e_date = new Date(end_date).toDateString();
+	    content += `<h2>${value.name}</h2>`
+	    content += `<p><strong>${s_date} - ${e_date}</strong></p><br>`
+	};
+	break;
+
 	
     default: // Structure for weapon pages
 	content += `<h1>${data.weapon}</h1>`;
@@ -56,7 +62,7 @@ function updateContent(data, index) {
 
 
 	content += `<table id="instructors_table_cap" border="1" cellpadding="5" cellspacing="0">`;
-	content += `<caption><strong>Instructors</strong></caption>`;
+	content += `<caption>Instructors</caption>`;
 	content += `<table id="instructors_table" border="1" cellpadding="5" cellspacing="0">`;
 
         for (const [key, value] of Object.entries(data.instructors)) {
@@ -76,7 +82,7 @@ function updateContent(data, index) {
 }
 
 // Refresh data every 5 seconds, one file at a time
-setInterval(fetchAndUpdateSingle, 5000);
+setInterval(fetchAndUpdateSingle, 3000);
 
 // Initial load
 fetchAndUpdateSingle();

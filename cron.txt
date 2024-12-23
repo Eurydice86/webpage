@@ -1,3 +1,2 @@
-news.py: once every hour
-monthly_presences: on first day of the month
-weekly_schedule: on Mondays
+upcoming classes per weapon: at midnight every day
+0 0 * * * cd /home/ehms/webpage; .venv/bin/python main.py
