@@ -11,7 +11,10 @@ def get_competitions():
         if e["event_category_id"] == 6878:
             comps.append(e)
 
+    comps = sorted(comps, key=lambda d: d['starts_at'])
+
     return comps
+
 
 def write_competitions():
 
@@ -26,4 +29,5 @@ def write_competitions():
 
 
 if __name__ == "__main__":
-    write_competitionts()
+    for c in get_competitions():
+        print(c["name"], c["starts_at"])
