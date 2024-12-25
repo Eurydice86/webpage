@@ -24,7 +24,8 @@ def members(group):
 
     instructors = []
     for m in memberships:
-        instructors.append(m["membership"]["member_id"])
+        if m.get("membership").get("level") == "Ohjaaja":
+            instructors.append(m["membership"]["member_id"])
 
     return instructors
 
