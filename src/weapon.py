@@ -14,20 +14,22 @@ def weapon_to_group(weapon):
         "German Longsword": "28112",
         "Sabre": "31363",
         "Rapier": "28114",
+        "EHMS Events": "28105",
     }
     return conversion_table[weapon]
 
 
 def weapon_to_tag(weapon):
     conversion_table = {
-        "Bolognese Sidesword": "28121",
-        "Fiore": "49024",
-        "Gekiken": "38874",
-        "Messer": "48332",
-        "Wrestling": "28115",
+        "Bolognese Sidesword": "",
+        "Fiore": "",
+        "Gekiken": "",
+        "Messer": "",
+        "Wrestling": "",
         "German Longsword": "pitkämiekka",
-        "Sabre": "31363",
-        "Rapier": "28114",
+        "Sabre": "",
+        "Rapier": "",
+        "EHMS Events": "ehmsry"
     }
     return conversion_table[weapon]
 
@@ -71,4 +73,4 @@ def all_weapons():
     write_weapon_info("German Longsword")
     write_weapon_info("Sabre")
     write_weapon_info("Rapier")
-    
+    write_weapon_info("EHMS Events")

@@ -11,7 +11,7 @@ def get_competitions():
         if e["event_category_id"] == 6878:
             comps.append(e)
 
-    comps = sorted(comps, key=lambda d: d['starts_at'])
+    comps = sorted(comps, key=lambda d: d["starts_at"])
 
     return comps
 
