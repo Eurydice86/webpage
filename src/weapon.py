@@ -36,7 +36,7 @@ def weapon_to_tag(weapon):
 
 def get_weapon_info(weapon):
     group = weapon_to_group(weapon)
-    weapon_events = upcoming_events.upcoming_events(group, days=14)
+    weapon_events = upcoming_events.upcoming_events(group, days=15)
     weapon_instructors = instructors.instructors_info(group)
 
     tag = weapon_to_tag(weapon)
