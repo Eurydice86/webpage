@@ -125,7 +125,7 @@ function updateContent(data, index) {
 }
 
 // Refresh data every 5 seconds, one file at a time
-setInterval(fetchAndUpdateSingle, 30000);
+setInterval(fetchAndUpdateSingle, 5000);
 
 // Initial load
 fetchAndUpdateSingle();
