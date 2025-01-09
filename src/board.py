@@ -7,7 +7,6 @@ load_dotenv()
 
 
 def board():
-
     board_members = {
         "Chair": "337",
         "Vice Chair": "347",
@@ -15,7 +14,7 @@ def board():
         "Secretary": "882",
         "Member": ["100"],
         "Substitute Member": ["782", "447"],
-        "Equality and Harrassment Contact": ["718"]
+        "Equality and Harrassment Contact": ["718"],
     }
 
     myclub_token = os.getenv("MC_TOKEN")
@@ -37,8 +36,13 @@ def board():
                 full_url = base_url + member_url
                 member = json.loads(requests.get(full_url, headers=headers).content)
                 member = member["member"]
-                board_roles.append({"role": role, "member_details": member, })
-
+                board_roles.append(
+                    {
+                        "role": role,
+                        "member_details": member,
+                    }
+                )
+                
     return board_roles
 
 

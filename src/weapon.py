@@ -1,6 +1,8 @@
 from src import upcoming_events
 from src import instructors
 from src import news
+
+import os
 import json
 
 
@@ -40,8 +42,8 @@ def get_weapon_info(weapon):
     weapon_instructors = instructors.instructors_info(group)
 
     tag = weapon_to_tag(weapon)
-    weapon_news = ""
-    # weapon_news = news.get_news(tag)
+    # weapon_news = ""
+    weapon_news = news.get_news(tag)
 
     return weapon_events, weapon_news, weapon_instructors
 
@@ -50,6 +52,9 @@ def write_weapon_info(weapon):
 
     events, news, instructors = get_weapon_info(weapon)
     events = sorted(events, key=lambda d: d["starts_at"])
+    for e in events:
+        with open("data/notifications.txt", "a") as notif_file:
+            notif_file.write(f"{e.get("ends_at")}\n")
 
     events_news_dict = {
         "weapon": weapon,
@@ -64,8 +69,12 @@ def write_weapon_info(weapon):
     with open(filename, "w") as output_file:
         output_file.write(json_out)
 
-
+def reset_notifications():
+    file = open("data/notifications.txt", "w")
+    file.close()
+    
 def all_weapons():
+    reset_notifications()
     write_weapon_info("Bolognese Sidesword")
     write_weapon_info("Gekiken")
     write_weapon_info("Messer")

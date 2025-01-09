@@ -5,11 +5,10 @@ from requests.auth import HTTPBasicAuth
 
 
 def get_news(tag=None):
-    url = "https://ehms.squarespace.com/uutiset/?format=json-pretty"
+    url = "https://ehms.fi/uutiset/?format=json-pretty"
     page = requests.get(url)
 
     if page.status_code == 200:
-        print(page.status_code)
         page = json.loads(page.content)
 
     news_list = []
