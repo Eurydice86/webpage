@@ -13,8 +13,8 @@ def board():
         "Treasurer": "101",
         "Secretary": "882",
         "Member": ["100"],
-        "Deputy Member": ["308", "647", ""],
-        "Equality and Harrassment Contact": ["504"],
+        "Deputy Member": ["308", "647", "504"],
+        "Equality and Harrassment Contact": ["718"],
     }
 
     myclub_token = os.getenv("MC_TOKEN")
