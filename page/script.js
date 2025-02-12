@@ -55,19 +55,19 @@ function updateContent(data, index) {
 	
 	content += `<tr>`;
         for (const [key, value] of Object.entries(data.board_members)) {
-            if (value.role == "Member" || value.role == "Substitute Member" || value.role == "Equality and Harrassment Contact") {
+            if (value.role == "Member" || value.role == "Deputy Member" || value.role == "Equality and Harrassment Contact") {
 		content += `<td><h2>${value.role}</h2></td>`;
 	    }
         }
 	content += `</tr>`;
 	for (const [key, value] of Object.entries(data.board_members)) {
-            if (value.role == "Member" || value.role == "Substitute Member" || value.role == "Equality and Harrassment Contact") {		content += `<td>${value.member_details.first_name} ${value.member_details.last_name}</td>`;
+            if (value.role == "Member" || value.role == "Deputy Member" || value.role == "Equality and Harrassment Contact") {		content += `<td>${value.member_details.first_name} ${value.member_details.last_name}</td>`;
             }
 	}
 	content += `</tr>`;
 	content += `<tr>`;
 	for (const [key, value] of Object.entries(data.board_members)) {
-            if (value.role == "Member" || value.role == "Substitute Member" || value.role == "Equality and Harrassment Contact") {
+            if (value.role == "Member" || value.role == "Deputy Member" || value.role == "Equality and Harrassment Contact") {
 		content += `<td><img src="${value.member_details.avatars.original}" height="200"></td>`;
             }
 	}
