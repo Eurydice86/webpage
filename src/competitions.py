@@ -8,7 +8,7 @@ def get_competitions():
 
     comps = []
     for e in events:
-        if e["event_category_id"] == 6878:
+        if e["event_category_id"] == 6878 or e["event_category_id"] == 7579:
             comps.append(e)
 
     comps = sorted(comps, key=lambda d: d["starts_at"])

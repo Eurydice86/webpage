@@ -3,6 +3,7 @@ from src import board
 from src import competitions
 
 import os
+
 if not os.path.exists("data"):
     os.makedirs("data")
 
