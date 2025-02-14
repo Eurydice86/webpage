@@ -16,7 +16,8 @@ def weapon_to_group(weapon):
         "German Longsword": "28112",
         "Sabre": "31363",
         "Rapier": "28114",
-        "EHMS Events": "28105",
+        "Boffering": "83286",
+        "EHMS Events": "28105",        
     }
     return conversion_table[weapon]
 
@@ -31,6 +32,7 @@ def weapon_to_tag(weapon):
         "German Longsword": "pitkämiekka",
         "Sabre": "",
         "Rapier": "",
+        "Boffering": "",
         "EHMS Events": "ehmsry"
     }
     return conversion_table[weapon]
@@ -82,4 +84,5 @@ def all_weapons():
     write_weapon_info("German Longsword")
     write_weapon_info("Sabre")
     write_weapon_info("Rapier")
+    write_weapon_info("Boffering")
     write_weapon_info("EHMS Events")

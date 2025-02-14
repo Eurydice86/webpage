@@ -1,4 +1,4 @@
-const jsonFiles = ["../data/board.json", "../data/competitions.json", "../data/EHMS-Events.json", "../data/Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Wrestling.json", "../data/German-Longsword.json", "../data/Sabre.json", "../data/Rapier.json"];
+const jsonFiles = ["../data/board.json", "../data/competitions.json", "../data/EHMS-Events.json", "../data/Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Wrestling.json", "../data/German-Longsword.json", "../data/Sabre.json", "../data/Rapier.json", "../data/Boffering.json"];
 let currentIndex = 0; // Tracks which JSON file to update next
 
 // Function to fetch and update a single JSON file
