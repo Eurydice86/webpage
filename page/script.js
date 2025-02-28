@@ -77,7 +77,7 @@ function updateContent(data, index) {
 	break;
 
     case 1: // Structure for events page
-        content += `<h1>Upcoming competitions (next 6 months)</strong></h1>`;
+        content += `<h1>Upcoming competitions</strong></h1>`;
 	for (const [key, value] of Object.entries(data.competitions)) {
 	    const start_date = Date.parse(value.starts_at);
 	    const end_date = Date.parse(value.ends_at);
@@ -89,7 +89,7 @@ function updateContent(data, index) {
 	break;
 
     case 2: // Structure for workshops page
-        content += `<h1>Upcoming workshops (next 6 months)</strong></h1>`;
+        content += `<h1>Upcoming workshops</strong></h1>`;
 	for (const [key, value] of Object.entries(data.workshops)) {
 	    const start_date = Date.parse(value.starts_at);
 	    const end_date = Date.parse(value.ends_at);
@@ -104,7 +104,7 @@ function updateContent(data, index) {
     default: // Structure for weapon pages
 	content += `<h1>${data.weapon}</h1>`;
 
-        content += `<h2>Upcoming events (next 14 days)</strong></h2>`;
+        content += `<h2>Upcoming trainings</strong></h2>`;
 	content += `<table border="1" cellpadding="5" cellspacing="0">`;
         content += `<tr><th>Class</th><th>Date and Time</th></tr>`;
         for (const [key, value] of Object.entries(data.events)) {

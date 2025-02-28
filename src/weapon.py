@@ -41,6 +41,8 @@ def weapon_to_tag(weapon):
 def get_weapon_info(weapon):
     group = weapon_to_group(weapon)
     weapon_events = upcoming_events.upcoming_events(group, days=15)
+    weapon_events = weapon_events[:10]
+    print(weapon, len(weapon_events))
     weapon_instructors = instructors.instructors_info(group)
 
     tag = weapon_to_tag(weapon)
@@ -54,9 +56,9 @@ def write_weapon_info(weapon):
 
     events, news, instructors = get_weapon_info(weapon)
     events = sorted(events, key=lambda d: d["starts_at"])
-    for e in events:
-        with open("data/notifications.txt", "a") as notif_file:
-            notif_file.write(f"{e.get("ends_at")}\n")
+    # for e in events:
+    #     with open("data/notifications.txt", "a") as notif_file:
+    #         notif_file.write(f"{e.get("ends_at")}\n")
 
     events_news_dict = {
         "weapon": weapon,
@@ -76,7 +78,7 @@ def reset_notifications():
     file.close()
     
 def all_weapons():
-    reset_notifications()
+    #reset_notifications()
     write_weapon_info("Bolognese Sidesword")
     write_weapon_info("Gekiken")
     write_weapon_info("Messer")
