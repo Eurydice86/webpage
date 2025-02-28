@@ -1,4 +1,4 @@
-const jsonFiles = ["../data/board.json", "../data/competitions.json", "../data/EHMS-Events.json", "../data/Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Wrestling.json", "../data/German-Longsword.json", "../data/Sabre.json", "../data/Rapier.json", "../data/Boffering.json"];
+const jsonFiles = ["../data/board.json", "../data/competitions.json", "../data/workshops.json", "../data/EHMS-Events.json", "../data/Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Wrestling.json", "../data/German-Longsword.json", "../data/Sabre.json", "../data/Rapier.json", "../data/Boffering.json"];
 let currentIndex = 0; // Tracks which JSON file to update next
 
 // Function to fetch and update a single JSON file
@@ -76,9 +76,21 @@ function updateContent(data, index) {
 	
 	break;
 
-    case 1: // Structure for events pages
-        content += `<h1>Upcoming competitions and workshops (next 6 months)</strong></h1>`;
+    case 1: // Structure for events page
+        content += `<h1>Upcoming competitions (next 6 months)</strong></h1>`;
 	for (const [key, value] of Object.entries(data.competitions)) {
+	    const start_date = Date.parse(value.starts_at);
+	    const end_date = Date.parse(value.ends_at);
+	    s_date = new Date(start_date).toDateString();
+	    e_date = new Date(end_date).toDateString();
+	    content += `<h2>${value.name}</h2>`
+	    content += `<p><strong>${s_date} - ${e_date}</strong></p><br>`
+	};
+	break;
+
+    case 2: // Structure for workshops page
+        content += `<h1>Upcoming workshops (next 6 months)</strong></h1>`;
+	for (const [key, value] of Object.entries(data.workshops)) {
 	    const start_date = Date.parse(value.starts_at);
 	    const end_date = Date.parse(value.ends_at);
 	    s_date = new Date(start_date).toDateString();
