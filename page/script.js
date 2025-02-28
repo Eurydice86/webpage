@@ -77,7 +77,7 @@ function updateContent(data, index) {
 	break;
 
     case 1: // Structure for events pages
-        content += `<h1>Upcoming events (next 6 months)</strong></h1>`;
+        content += `<h1>Upcoming competitions and workshops (next 6 months)</strong></h1>`;
 	for (const [key, value] of Object.entries(data.competitions)) {
 	    const start_date = Date.parse(value.starts_at);
 	    const end_date = Date.parse(value.ends_at);
