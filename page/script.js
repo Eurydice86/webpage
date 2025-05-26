@@ -1,4 +1,4 @@
-const jsonFiles = ["../data/board.json", "../data/board.json", "../data/competitions.json", "../data/workshops.json", "../data/EHMS-Events.json", "../data/Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Wrestling.json", "../data/German-Longsword.json", "../data/Sabre.json", "../data/Rapier.json", "../data/Boffering.json"];
+const jsonFiles = ["../data/board.json", "../data/board.json", "../data/competitions.json", "../data/workshops.json", "../data/EHMS-Tapahtumat_EHMS-Events.json", "../data/Bolognalainen-Sivumiekka_Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Paini_Wrestling.json", "../data/Saksalainen-Pitkämiekka_German-Longsword.json", "../data/Sapeli_Sabre.json", "../data/Rapiiri_Rapier.json", "../data/Boffaus_Boffering.json"];
 let currentIndex = 0; // Tracks which JSON file to update next
 
 // Function to fetch and update a single JSON file
@@ -78,7 +78,7 @@ function updateContent(data, index) {
 	break;
 
     case 1: // Structure for Equality and Harrassment contact
-	content += `<h1>Equality and Harrassment Contact</h1>`;
+	content += `<h1>Häirintäyhdyshenkilö / Equality and Harrassment Contact</h1>`;
 	content += `<table border="1" cellpadding="5" cellspacing="0">`;
 	
 	content += `</tr>`;
@@ -100,7 +100,7 @@ function updateContent(data, index) {
 
 	
     case 2: // Structure for events page
-        content += `<h1>Upcoming competitions</strong></h1>`;
+        content += `<h1>Tulevat kisat(?) (seur. 3 kk.) / Upcoming Competitions (next 3 months)</strong></h1>`;
 	for (const [key, value] of Object.entries(data.competitions)) {
 	    const start_date = Date.parse(value.starts_at);
 	    const end_date = Date.parse(value.ends_at);
@@ -112,7 +112,7 @@ function updateContent(data, index) {
 	break;
 
     case 3: // Structure for workshops page
-        content += `<h1>Upcoming workshops</strong></h1>`;
+        content += `<h1>Tulevat ??? (seur. 3 kk.) / Upcoming workshops (next 3 months)</strong></h1>`;
 	for (const [key, value] of Object.entries(data.workshops)) {
 	    const start_date = Date.parse(value.starts_at);
 	    const end_date = Date.parse(value.ends_at);
@@ -127,13 +127,13 @@ function updateContent(data, index) {
     default: // Structure for weapon pages
 	content += `<h1>${data.weapon}</h1>`;
 
-        content += `<h2>Upcoming trainings</strong></h2>`;
+        content += `<h2>Tulevat tapahtumat (seur. 14 pv.) / Upcoming events (next 14 days)</strong></h2>`;
 	content += `<table border="1" cellpadding="5" cellspacing="0">`;
         content += `<tr><th>Class</th><th>Date and Time</th></tr>`;
         for (const [key, value] of Object.entries(data.events)) {
 	    const start_date = Date.parse(value.starts_at)
 	    const date = new Date(start_date)
-	    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	    const weekday = ["Sunnuntai / Sunday","Maanantai / Monday","Tiistai / Tuesday","Keskiviikko / Wednesday","Torstai / Thursday","Perjantai / Friday","Lauantai / Saturday"];
             content += `<tr><td>${value.name}</td><td>${weekday[date.getDay()]} ${date.toLocaleString("fi-FI")}</td></tr>`;
         }
         content += `</table>`;
