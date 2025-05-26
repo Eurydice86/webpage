@@ -1,4 +1,4 @@
-const jsonFiles = ["../data/board.json", "../data/competitions.json", "../data/workshops.json", "../data/EHMS-Events.json", "../data/Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Wrestling.json", "../data/German-Longsword.json", "../data/Sabre.json", "../data/Rapier.json", "../data/Boffering.json"];
+const jsonFiles = ["../data/board.json", "../data/board.json", "../data/competitions.json", "../data/workshops.json", "../data/EHMS-Events.json", "../data/Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Wrestling.json", "../data/German-Longsword.json", "../data/Sabre.json", "../data/Rapier.json", "../data/Boffering.json"];
 let currentIndex = 0; // Tracks which JSON file to update next
 
 // Function to fetch and update a single JSON file
@@ -29,24 +29,24 @@ function updateContent(data, index) {
     switch (index) {
 
     case 0: // Structure for board page
-        content += `<h1>EHMS Board</h1>`;
+        content += `<h1>EHMS Hallitus / EHMS Board</h1>`;
 	content += `<table border="1" cellpadding="5" cellspacing="0">`;
 	content += `<tr>`;
         for (const [key, value] of Object.entries(data.board_members)) {
-	    if (value.role == "Chair" || value.role == "Vice Chair" || value.role == "Treasurer" || value.role == "Secretary" ) {
+	    if (value.role == "Puheenjohtaja / Chair" || value.role == "VPJ / Vice Chair" || value.role == "Taloudenhoitaja / Treasurer" || value.role == "Secretary" || value.role == "Tiedottaja / Member" ) {
 		content += `<td><h2>${value.role}</h2></td>`;
 	    }
         }
 	content += `<tr>`;
         for (const [key, value] of Object.entries(data.board_members)) {
-	    if (value.role == "Chair" || value.role == "Vice Chair" || value.role == "Treasurer" || value.role == "Secretary" ) {
+	    if (value.role == "Puheenjohtaja / Chair" || value.role == "VPJ / Vice Chair" || value.role == "Taloudenhoitaja / Treasurer" || value.role == "Secretary" || value.role == "Tiedottaja / Member" ) {
 		content += `<td>${value.member_details.first_name} ${value.member_details.last_name}</td>`;
             }
 	}
 	content += `</tr>`;
 	content += `<tr>`;
 	for (const [key, value] of Object.entries(data.board_members)) {
-            if (value.role == "Chair" || value.role == "Vice Chair" || value.role == "Treasurer" || value.role == "Secretary" ) {
+	    if (value.role == "Puheenjohtaja / Chair" || value.role == "VPJ / Vice Chair" || value.role == "Taloudenhoitaja / Treasurer" || value.role == "Secretary" || value.role == "Tiedottaja / Member" ) {
 		content += `<td><img src="${value.member_details.avatars.original}" height="200"></td>`;
             }
 	}
@@ -55,19 +55,20 @@ function updateContent(data, index) {
 	
 	content += `<tr>`;
         for (const [key, value] of Object.entries(data.board_members)) {
-            if (value.role == "Member" || value.role == "Deputy Member" || value.role == "Equality and Harrassment Contact") {
+            if (value.role == "Vara-jäsen / Deputy Member") {
 		content += `<td><h2>${value.role}</h2></td>`;
 	    }
         }
 	content += `</tr>`;
 	for (const [key, value] of Object.entries(data.board_members)) {
-            if (value.role == "Member" || value.role == "Deputy Member" || value.role == "Equality and Harrassment Contact") {		content += `<td>${value.member_details.first_name} ${value.member_details.last_name}</td>`;
+            if (value.role == "Vara-jäsen / Deputy Member") {
+		content += `<td>${value.member_details.first_name} ${value.member_details.last_name}</td>`;
             }
 	}
 	content += `</tr>`;
 	content += `<tr>`;
 	for (const [key, value] of Object.entries(data.board_members)) {
-            if (value.role == "Member" || value.role == "Deputy Member" || value.role == "Equality and Harrassment Contact") {
+            if (value.role == "Vara-jäsen / Deputy Member") {
 		content += `<td><img src="${value.member_details.avatars.original}" height="200"></td>`;
             }
 	}
@@ -76,7 +77,29 @@ function updateContent(data, index) {
 	
 	break;
 
-    case 1: // Structure for events page
+    case 1: // Structure for Equality and Harrassment contact
+	content += `<h1>Equality and Harrassment Contact</h1>`;
+	content += `<table border="1" cellpadding="5" cellspacing="0">`;
+	
+	content += `</tr>`;
+	for (const [key, value] of Object.entries(data.board_members)) {
+            if (value.role == "Häirintäyhdyshenkilö / Equality and Harrassment Contact") {
+		content += `<td>${value.member_details.first_name} ${value.member_details.last_name}</td>`;
+            }
+	}
+	content += `</tr>`;
+	content += `<tr>`;
+	for (const [key, value] of Object.entries(data.board_members)) {
+            if (value.role == "Häirintäyhdyshenkilö / Equality and Harrassment Contact") {
+		content += `<td><img src="${value.member_details.avatars.original}" height="200"></td>`;
+            }
+	}
+	content += `</tr>`;
+
+	break;
+
+	
+    case 2: // Structure for events page
         content += `<h1>Upcoming competitions</strong></h1>`;
 	for (const [key, value] of Object.entries(data.competitions)) {
 	    const start_date = Date.parse(value.starts_at);
@@ -88,7 +111,7 @@ function updateContent(data, index) {
 	};
 	break;
 
-    case 2: // Structure for workshops page
+    case 3: // Structure for workshops page
         content += `<h1>Upcoming workshops</strong></h1>`;
 	for (const [key, value] of Object.entries(data.workshops)) {
 	    const start_date = Date.parse(value.starts_at);
@@ -114,7 +137,6 @@ function updateContent(data, index) {
             content += `<tr><td>${value.name}</td><td>${weekday[date.getDay()]} ${date.toLocaleString("fi-FI")}</td></tr>`;
         }
         content += `</table>`;
-
 
 	content += `<table id="instructors_table_cap" border="1" cellpadding="5" cellspacing="0">`;
 	content += `<caption>Instructors</caption>`;

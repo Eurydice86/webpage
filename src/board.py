@@ -8,13 +8,13 @@ load_dotenv()
 
 def board():
     board_members = {
-        "Chair": "347",
-        "Vice Chair": "782",
-        "Treasurer": "101",
-        "Secretary": "882",
-        "Member": ["100"],
-        "Deputy Member": ["308", "647", "504"],
-        "Equality and Harrassment Contact": ["718"],
+        "Puheenjohtaja / Chair": "347",
+        "VPJ / Vice Chair": "782",
+        "Taloudenhoitaja / Treasurer": "101",
+        "Sihteeri / Secretary": "882",
+        "Tiedottaja / Member": ["100"],
+        "Vara-jäsen / Deputy Member": ["308", "647", "504"],
+        "Häirintäyhdyshenkilö / Equality and Harrassment Contact": ["718"],
     }
 
     myclub_token = os.getenv("MC_TOKEN")
