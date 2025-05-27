@@ -1,4 +1,5 @@
 import datetime
+import main
 
 file = "last_run.txt"
 
@@ -8,10 +9,11 @@ if file:
         print(date_and_time)
 
         if ((datetime.datetime.now() - date_and_time).total_seconds() // 60 // 60) > 12:
-            print("yass queen")
-            
+            print("More than 12 hours since last run")
+            main.main()
             
             with open(file, "w") as f:
                 f.write(datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
         else:
-            print("naaaahhh")
+            print("Last run was less than 12 hours ago")
+

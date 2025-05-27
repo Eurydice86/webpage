@@ -4,10 +4,15 @@ from src import competitions
 
 import os
 
-if not os.path.exists("data"):
-    os.makedirs("data")
 
-if __name__ == "__main__":
+def main():
+    if not os.path.exists("data"):
+        os.makedirs("data")
+
     weapon.all_weapons()
     board.write_board_info()
     competitions.write_competitions()
+
+
+if __name__ == "__main__":
+    main()
