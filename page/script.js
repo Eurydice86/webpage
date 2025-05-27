@@ -129,12 +129,12 @@ function updateContent(data, index) {
 
         content += `<h2>Tulevat tapahtumat (seur. 14 pv.) / Upcoming events (next 14 days)</strong></h2>`;
 	content += `<table border="1" cellpadding="5" cellspacing="0">`;
-        content += `<tr><th>Class</th><th>Date and Time</th></tr>`;
+        content += `<tr><th>Class</th><th>Date and Time</th><th>Instructors</th></tr>`;
         for (const [key, value] of Object.entries(data.events)) {
 	    const start_date = Date.parse(value.starts_at)
 	    const date = new Date(start_date)
 	    const weekday = ["Sunnuntai / Sunday","Maanantai / Monday","Tiistai / Tuesday","Keskiviikko / Wednesday","Torstai / Thursday","Perjantai / Friday","Lauantai / Saturday"];
-            content += `<tr><td>${value.name}</td><td>${weekday[date.getDay()]} ${date.toLocaleString("fi-FI")}</td></tr>`;
+            content += `<tr><td>${value.name}</td><td>${weekday[date.getDay()]} ${date.toLocaleString("fi-FI")}</td><td>${value.instructor_ids}</td></tr>`;
         }
         content += `</table>`;
 

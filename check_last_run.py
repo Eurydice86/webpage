@@ -8,7 +8,8 @@ if file:
         print(date_and_time)
 
         if ((datetime.datetime.now() - date_and_time).total_seconds() // 60 // 60) > 12:
-            print("yass")
+            print("yass queen")
+            
             
             with open(file, "w") as f:
                 f.write(datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))

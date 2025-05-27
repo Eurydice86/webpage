@@ -2,9 +2,14 @@ import requests
 import json
 import os
 
+# from src import instructor
+import instructor
+
 from dotenv import load_dotenv
 
 load_dotenv()
+
+
 def event(event_id):
     myclub_token = os.getenv("MC_TOKEN")
     headers = {"X-myClub-token": myclub_token}
@@ -25,6 +30,10 @@ def event(event_id):
     group_id = event.get("group_id")
     venue_id = event.get("venue_id")
     course_id = event.get("course_id") if event.get("course_id") else "-"
+    instructor_ids = event.get("instructor_ids")
+    for i in instructor_ids:
+        print(i)
+        instr = instructor.instructor(str(i), str(group_id))
 
     event_dict = {
         "event_id": event_id,
