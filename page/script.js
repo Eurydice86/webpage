@@ -134,7 +134,7 @@ function updateContent(data, index) {
 	    const start_date = Date.parse(value.starts_at)
 	    const date = new Date(start_date)
 	    const weekday = ["Sunnuntai / Sunday","Maanantai / Monday","Tiistai / Tuesday","Keskiviikko / Wednesday","Torstai / Thursday","Perjantai / Friday","Lauantai / Saturday"];
-            content += `<tr><td>${value.name}</td><td>${weekday[date.getDay()]} ${date.toLocaleString("fi-FI")}</td><td>${value.instructor_ids}</td></tr>`;
+            content += `<tr><td>${value.name}</td><td>${weekday[date.getDay()]} ${date.toLocaleString("fi-FI")}</td><td>${value.instructor_names}</td></tr>`;
         }
         content += `</table>`;
 
