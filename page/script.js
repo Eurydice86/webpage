@@ -33,20 +33,20 @@ function updateContent(data, index) {
 	content += `<table border="1" cellpadding="5" cellspacing="0">`;
 	content += `<tr>`;
         for (const [key, value] of Object.entries(data.board_members)) {
-	    if (value.role == "Puheenjohtaja / Chair" || value.role == "VPJ / Vice Chair" || value.role == "Taloudenhoitaja / Treasurer" || value.role == "Secretary" || value.role == "Tiedottaja / Member" ) {
+	    if (value.role == "Puheenjohtaja / Chair" || value.role == "VPJ / Vice Chair" || value.role == "Taloudenhoitaja / Treasurer" || value.role == "Secretary" || value.role == "Tiedottaja / Communications" ) {
 		content += `<td><h2>${value.role}</h2></td>`;
 	    }
         }
 	content += `<tr>`;
         for (const [key, value] of Object.entries(data.board_members)) {
-	    if (value.role == "Puheenjohtaja / Chair" || value.role == "VPJ / Vice Chair" || value.role == "Taloudenhoitaja / Treasurer" || value.role == "Secretary" || value.role == "Tiedottaja / Member" ) {
+	    if (value.role == "Puheenjohtaja / Chair" || value.role == "VPJ / Vice Chair" || value.role == "Taloudenhoitaja / Treasurer" || value.role == "Secretary" || value.role == "Tiedottaja / Communications" ) {
 		content += `<td>${value.member_details.first_name} ${value.member_details.last_name}</td>`;
             }
 	}
 	content += `</tr>`;
 	content += `<tr>`;
 	for (const [key, value] of Object.entries(data.board_members)) {
-	    if (value.role == "Puheenjohtaja / Chair" || value.role == "VPJ / Vice Chair" || value.role == "Taloudenhoitaja / Treasurer" || value.role == "Secretary" || value.role == "Tiedottaja / Member" ) {
+	    if (value.role == "Puheenjohtaja / Chair" || value.role == "VPJ / Vice Chair" || value.role == "Taloudenhoitaja / Treasurer" || value.role == "Secretary" || value.role == "Tiedottaja / Communications" ) {
 		content += `<td><img src="${value.member_details.avatars.original}" height="200"></td>`;
             }
 	}

@@ -12,7 +12,7 @@ def board():
         "VPJ / Vice Chair": "782",
         "Taloudenhoitaja / Treasurer": "101",
         "Sihteeri / Secretary": "882",
-        "Tiedottaja / Member": ["100"],
+        "Tiedottaja / Communications": ["100"],
         "Vara-jäsen / Deputy Member": ["308", "647", "504"],
         "Häirintäyhdyshenkilö / Equality and Harrassment Contact": ["718"],
     }
