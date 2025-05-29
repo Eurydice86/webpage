@@ -1,4 +1,5 @@
 const jsonFiles = ["../data/board.json", "../data/board.json", "../data/competitions.json", "../data/workshops.json", "../data/EHMS-Tapahtumat_EHMS-Events.json", "../data/Bolognalainen-Sivumiekka_Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Paini_Wrestling.json", "../data/Saksalainen-Pitkämiekka_German-Longsword.json", "../data/Sapeli_Sabre.json", "../data/Rapiiri_Rapier.json", "../data/Boffaus_Boffering.json"];
+
 let currentIndex = 0; // Tracks which JSON file to update next
 
 // Function to fetch and update a single JSON file
@@ -78,6 +79,7 @@ function updateContent(data, index) {
 	break;
 
     case 1: // Structure for Equality and Harrassment contact
+
 	content += `<h1>Häirintäyhdyshenkilö / Equality and Harrassment Contact</h1>`;
 	content += `<table border="1" cellpadding="5" cellspacing="0">`;
 	
@@ -125,34 +127,35 @@ function updateContent(data, index) {
 
 	
     default: // Structure for weapon pages
+
 	content += `<h1>${data.weapon}</h1>`;
 
-        content += `<h2>Tulevat tapahtumat (seur. 14 pv.) / Upcoming events (next 14 days)</strong></h2>`;
+	content += `<h2>Tulevat tapahtumat (seur. 14 pv.) / Upcoming events (next 14 days)</strong></h2>`;
 	content += `<table border="1" cellpadding="5" cellspacing="0">`;
-        content += `<tr><th>Class</th><th>Date and Time</th><th>Instructors</th></tr>`;
-        for (const [key, value] of Object.entries(data.events)) {
+	content += `<tr><th>Class</th><th>Date and Time</th><th>Instructors</th></tr>`;
+	for (const [key, value] of Object.entries(data.events)) {
 	    const start_date = Date.parse(value.starts_at)
 	    const date = new Date(start_date)
 	    const weekday = ["Sunnuntai / Sunday","Maanantai / Monday","Tiistai / Tuesday","Keskiviikko / Wednesday","Torstai / Thursday","Perjantai / Friday","Lauantai / Saturday"];
             content += `<tr><td>${value.name}</td><td>${weekday[date.getDay()]} ${date.toLocaleString("fi-FI")}</td><td>${value.instructor_names}</td></tr>`;
-        }
-        content += `</table>`;
+	}
+	content += `</table>`;
 
 	content += `<table id="instructors_table_cap" border="1" cellpadding="5" cellspacing="0">`;
 	content += `<caption>Instructors</caption>`;
 	content += `<table id="instructors_table" border="1" cellpadding="5" cellspacing="0">`;
 
-        for (const [key, value] of Object.entries(data.instructors)) {
+	for (const [key, value] of Object.entries(data.instructors)) {
             content += `<td>${value.first_name} ${value.last_name}</td>`;
-        }
+	}
 	content += `<tr>`;
 	for (const [key, value] of Object.entries(data.instructors)) {
             content += `<td><img src="${value.photo}" height="150"></td>`;
-        }
+	}
 	content += `</tr>`;
 
 
-        break;
+	break;
     }
 
     section.innerHTML = content;
