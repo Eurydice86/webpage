@@ -9,7 +9,7 @@
 
 
 INFO_PAGE_PATH="/home/ehms/webpage/"
-MYCLUB_UPDATE_PATH="home/ehms/ehms_mc_api/"
+MYCLUB_UPDATE_PATH="/home/ehms/ehms_mc_api/"
 
 # If internet connection is established (ping google, see if there is response)
 if ping -c1 -w5 google.com > /dev/null 2>&1; then
@@ -40,8 +40,7 @@ if ping -c1 -w5 google.com > /dev/null 2>&1; then
 	# Get current timestamp in format YYYY-MM-DD HH:MM:SS
 	timestamp=$(date "+%Y-%m-%d %H:%M:%S")
 
-	# Append timestamp to the file
-	echo "$timestamp" >> timestamp.log
+
 	cd "$INFO_PAGE_PATH"
 	source .venv/bin/activate
 	python main.py
@@ -52,7 +51,8 @@ if ping -c1 -w5 google.com > /dev/null 2>&1; then
 	python src/initialise.py
 	deactivate
 	
-	echo "$timestamp" >> last_run_timestamp.log
+	# Replace timestamp in the file	
+	echo "$timestamp" > last_run_timestamp.log
     else
 	echo "It has NOT been more than 12 hours."
     fi
