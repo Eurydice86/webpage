@@ -11,10 +11,6 @@
 INFO_PAGE_PATH="/home/ehms/webpage/"
 MYCLUB_UPDATE_PATH="home/ehms/ehms_mc_api/"
 
-INFO_PAGE_PATH="/home/nikos/projects/webpage/"
-MYCLUB_UPDATE_PATH="home/ehms/ehms_mc_api/"
-
-
 # If internet connection is established (ping google, see if there is response)
 if ping -c1 -w5 google.com > /dev/null 2>&1; then
     echo "Connection found"
