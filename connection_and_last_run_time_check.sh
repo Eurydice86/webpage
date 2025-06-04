@@ -16,7 +16,7 @@ if ping -c1 -w5 google.com > /dev/null 2>&1; then
     echo "Connection found"
 
     # Read the last timestamp from the file
-    last_timestamp=$(tail -n 1 last_run_timestamp.log)
+    last_timestamp=$(tail -n 1 /home/ehms/webpage/last_run_timestamp.log)
 
     if [ -z "$last_timestamp" ]; then
 	echo "No timestamp found in file."
@@ -40,19 +40,19 @@ if ping -c1 -w5 google.com > /dev/null 2>&1; then
 	# Get current timestamp in format YYYY-MM-DD HH:MM:SS
 	timestamp=$(date "+%Y-%m-%d %H:%M:%S")
 
-
-	cd "$INFO_PAGE_PATH"
-	source .venv/bin/activate
-	python main.py
-	deactivate
-
 	cd "$MYCLUB_UPDATE_PATH"
 	source .venv/bin/activate
 	python src/initialise.py
 	deactivate
-	
+	#
+
+   	cd "$INFO_PAGE_PATH"
+	source .venv/bin/activate
+	python main.py
+	deactivate
+
 	# Replace timestamp in the file	
-	echo "$timestamp" > last_run_timestamp.log
+	echo "$timestamp" > /home/ehms/webpage/last_run_timestamp.log
     else
 	echo "It has NOT been more than 12 hours."
     fi
