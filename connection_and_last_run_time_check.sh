@@ -41,12 +41,14 @@ if ping -c1 -w5 google.com > /dev/null 2>&1; then
 	timestamp=$(date "+%Y-%m-%d %H:%M:%S")
 
 	cd "$MYCLUB_UPDATE_PATH"
+	git pull
 	source .venv/bin/activate
 	python src/initialise.py
 	deactivate
 	#
 
    	cd "$INFO_PAGE_PATH"
+	git pull
 	source .venv/bin/activate
 	python main.py
 	deactivate
