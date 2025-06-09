@@ -98,6 +98,13 @@ function updateContent(data, index) {
 	}
 	content += `</tr>`;
 
+	content += `<tr>`;
+	content += `<td>Phone number: </td>`;
+	content += `</tr>`;
+	
+	content += `<tr>`;
+	content += `<td>Email: </td>`;
+	content += `</tr>`;
 	break;
 
 	
