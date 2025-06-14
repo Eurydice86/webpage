@@ -109,7 +109,7 @@ function updateContent(data, index) {
 
 	
     case 2: // Structure for events page
-        content += `<h1>Tulevat kilpailut (seur. 3 kk) / Upcoming Competitions (next 3 months)</strong></h1>`;
+        content += `<h1>Tulevat kilpailut (seur. 6 kk) / Upcoming Competitions (next 6 months)</strong></h1>`;
 	for (const [key, value] of Object.entries(data.competitions)) {
 	    const start_date = Date.parse(value.starts_at);
 	    const end_date = Date.parse(value.ends_at);
@@ -121,7 +121,7 @@ function updateContent(data, index) {
 	break;
 
     case 3: // Structure for workshops page
-        content += `<h1>Tulevat työpajat (seur. 3 kk) / Upcoming workshops (next 3 months)</strong></h1>`;
+        content += `<h1>Tulevat työpajat (seur. 6 kk) / Upcoming workshops (next 6 months)</strong></h1>`;
 	for (const [key, value] of Object.entries(data.workshops)) {
 	    const start_date = Date.parse(value.starts_at);
 	    const end_date = Date.parse(value.ends_at);
