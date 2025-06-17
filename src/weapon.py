@@ -41,7 +41,6 @@ def weapon_to_tag(weapon):
 def get_weapon_info(weapon):
     group = weapon_to_group(weapon)
     weapon_events = upcoming_events.upcoming_events(group, days=15)
-    weapon_events = weapon_events[:10]
     weapon_instructors = instructors.instructors_info(group)
 
     tag = weapon_to_tag(weapon)
@@ -55,6 +54,8 @@ def write_weapon_info(weapon):
 
     events, news, instructors = get_weapon_info(weapon)
     events = sorted(events, key=lambda d: d["starts_at"])
+    events = events[:10]
+
     # for e in events:
     #     with open("data/notifications.txt", "a") as notif_file:
     #         notif_file.write(f"{e.get("ends_at")}\n")

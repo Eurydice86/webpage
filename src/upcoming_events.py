@@ -4,6 +4,7 @@ import json
 import os
 
 from src import instructor
+#import instructor
 
 from dotenv import load_dotenv
 
@@ -28,18 +29,17 @@ def upcoming_events(group, days):
     response = requests.get(full_url, headers=headers, params=params)
     content = json.loads(response.content)
 
-
     events = []
     for c in content:
         c = c.get("event")
         instructor_ids = c.get("instructor_ids")
         names = []
-        
+
         for id in instructor_ids:
             instr = instructor.instructor(str(id), str(c.get("group_id")))
             if instr:
                 names.append(f"{instr.get("first_name")} {instr.get("last_name")}")
-            
+
         c["instructor_names"] = names
 
         events.append(c)
@@ -48,7 +48,7 @@ def upcoming_events(group, days):
 
 
 if __name__ == "__main__":
-    
+
     ue = upcoming_events("28112", 14)
     for e in ue:
         print(json.dumps(e, indent=2))
