@@ -1,4 +1,4 @@
-const jsonFiles = ["../data/board.json", "../data/board.json", "../data/competitions.json", "../data/workshops.json", "../data/EHMS-Tapahtumat_EHMS-Events.json", "../data/Bolognalainen-Sivumiekka_Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Paini_Wrestling.json", "../data/Saksalainen-Pitkämiekka_German-Longsword.json", "../data/Sapeli_Sabre.json", "../data/Rapiiri_Rapier.json", "../data/Boffaus_Boffering.json"];
+const jsonFiles = ["../data/board.json", "../data/board.json", "../data/competitions.json", "../data/workshops.json", "../data/EHMS-Tapahtumat_EHMS-Events.json", "../data/etiquette.html", "../data/Bolognalainen-Sivumiekka_Bolognese-Sidesword.json", "../data/Gekiken.json", "../data/Messer.json", "../data/Paini_Wrestling.json", "../data/Saksalainen-Pitkämiekka_German-Longsword.json", "../data/Sapeli_Sabre.json", "../data/Rapiiri_Rapier.json", "../data/Boffaus_Boffering.json"];
 
 let currentIndex = 0; // Tracks which JSON file to update next
 
@@ -138,6 +138,18 @@ function updateContent(data, index) {
 	    content += `<p><strong>${s_date} - ${e_date}</strong></p><br>`
 	};
 	break;
+
+    case 4:
+	content += ``
+
+	fetch('../data/etiquette.html')
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.text();
+    })
+    .then(html => {
+      document.getElementById('content').innerHTML = html;
+    })
 
 	
     default: // Structure for weapon pages
