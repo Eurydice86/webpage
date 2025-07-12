@@ -97,14 +97,21 @@ function updateContent(data, index) {
             }
 	}
 	content += `</tr>`;
-
-	content += `<tr>`;
-	content += `<td>Phone number: </td>`;
-	content += `</tr>`;
 	
 	content += `<tr>`;
-	content += `<td>Email: </td>`;
-	content += `</tr>`;
+	dict = Object.entries(data.equality_person_contact)
+	for (const [key, value] of dict) {
+	    if (key == "phone") {
+		content += `<td>Phone: ${value}</td>`;
+		content += `</tr>`;
+	    }
+	    if (key == "email") {
+		content += `<td>Email: ${value}</td>`;
+		content += `</tr>`;
+	    }
+
+	}
+	
 	break;
 
 	
@@ -169,7 +176,7 @@ function updateContent(data, index) {
 }
 
 // Refresh data every 5 seconds, one file at a time
-setInterval(fetchAndUpdateSingle, 30000);
+setInterval(fetchAndUpdateSingle, 3000);
 
 // Initial load
 fetchAndUpdateSingle();
