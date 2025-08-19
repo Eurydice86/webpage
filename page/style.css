@@ -26,7 +26,16 @@ body {
 
 h1 {
     font-family: 'Merriweather', serif;
-    color: #2B374A; /* Calm teal green */
+    color: #2B374A;
+    text-align: center;
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-family: 'Merriweather', serif;
+    color: ##178A94;
     text-align: center;
     font-weight: 700;
     font-size: 32px;
@@ -44,6 +53,14 @@ h1 {
 }
 
 .data-section h2 {
+    font-family: 'Merriweather', serif;
+    margin: 0 0 10px;
+    font-size: 22px;
+    color: #178A94; /* Teal for section headings */
+    font-weight: 700;
+}
+
+.data-section h3 {
     font-family: 'Merriweather', serif;
     margin: 0 0 10px;
     font-size: 22px;

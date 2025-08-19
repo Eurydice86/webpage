@@ -49,8 +49,13 @@ def board():
 def write_board_info():
 
     board_roles = board()
+    equality_person_contact = {
+        "email": os.getenv("EQUALITY_PERSON_EMAIL"),
+        "phone": os.getenv("EQUALITY_PERSON_PHONE")
+    }
 
-    output_dict = {"board_members": board()}
+    output_dict = {"board_members": board(),
+                   "equality_person_contact": equality_person_contact}
 
     json_out = json.dumps(output_dict, indent=4)
 
