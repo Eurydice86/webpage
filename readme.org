@@ -1,0 +1,26 @@
+* Setup
+- Open a terminal
+- Clone the repository: =git clone git@github.com:Eurydice86/webpage.git=
+- Change the working directory: =cd webpage=
+- Create a virtual environment: =python -m venv .venv=
+- Activate the environment: =source .venv/bin/activate=
+- Install dependencies: =pip install -r requirements.txt=
+- Download the .env file from the EHMS 1password vault and put it in the root ("webpage") directory
+- Start a local http server: =python -m http.server=
+- Open a web browser and navigate to =localhost:8000/page=
+
+* Updates
+The info displayed is updated from MyClub and the EHMS website.
+The script =connection_and_last_run_time_check.sh= checks for an available internet connection; if it finds one, it updates the information every 12 hours, and saves it to local files, so that the info can be displayed even if there is no connection available. It also runs =git pull= to get the latest version of the scripts, in case there have been modifications.
+
+* Scheduling
+In order to run the script periodically, create a cron job on the machine that runs the aforementioned script: =*/5 * * * * /home/ehms/webpage/connection_and_last_run_time_check.sh=
+
+* Maintenance
+Remember to keep the machine up to date (=sudo apt update=, followed by =sudo apt upgrade= every once in a while)
+
+* Restart after something has broken / the laptop was turned off
+- Change the working directory: =cd webpage=
+- Activate the virtual environment: =source .venv/bin/activate=
+- Start a local http server: =python -m http.server=
+- Open a web browser and navigate to =localhost:8000/page=
