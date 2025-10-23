@@ -10,7 +10,6 @@ export function renderWeaponPage(data) {
   ];
 
   let html = `<html><head><style>
-    /* Set fixed page size */
     html, body {
       width: 1920px;
       height: 1080px;
@@ -19,62 +18,114 @@ export function renderWeaponPage(data) {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      align-items: center; /* Center content horizontally */
+      align-items: center;
+      font-family: 'Merriweather', serif;
+      background-color: #FCF5D8;
+      color: #2B374A;
+      position: relative;
     }
 
-    /* Center the headers (h1 and h2) horizontally on the page */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('ehms_logo.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 900px auto;
+      opacity: 0.04;
+      z-index: -1;
+    }
+
     h1, h2 {
       position: absolute;
       left: 50%;
-      transform: translateX(-50%); /* Centers the headers horizontally */
+      transform: translateX(-50%);
       text-align: center;
-      margin: 0; /* Remove default margins */
+      margin: 0;
+      font-weight: 700;
+      color: #2B374A;
     }
 
-    /* Position h2 below h1 */
+    h1 {
+      top: 40px;
+      font-size: 48px;
+      white-space: nowrap;
+    }
+
     h2 {
-      top: 150px; /* Adjust this value to control the space between h1 and h2 */
+      top: 110px;
+      font-size: 28px;
+      color: #178A94;
     }
 
-    /* Content will take up all space except the bottom (where the footer will go) */
     .content {
       flex: 1;
     }
 
-    /* Center the upcoming events table on the page and push it lower */
     .events-table {
       width: auto;
       position: absolute;
-      top: 200px; /* Adjust this value to control vertical space from top */
+      top: 220px;
       left: 50%;
-      transform: translateX(-50%); /* Centers the table horizontally */
+      transform: translateX(-50%);
       border-collapse: collapse;
+      background-color: transparent;
     }
 
     .events-table td, .events-table th {
-      padding: 10px;
-      text-align: left; /* Align text to the left inside the cells */
+      padding: 8px 18px;
+      text-align: left;
+      border: none;
+      font-size: 20px;
+      color: #2B374A;
     }
 
-    /* Center the instructors table at the bottom */
+    .events-table th {
+      font-weight: 700;
+      font-size: 22px;
+      background-color: rgba(24, 138, 148, 0.08);
+      color: #178A94;
+      border-bottom: 2px solid #178A94;
+    }
+
+    .events-table tbody tr {
+      border-bottom: 1px solid rgba(43, 55, 74, 0.08);
+    }
+
     .instructors-table {
       width: auto;
       position: absolute;
       bottom: 0;
       left: 50%;
-      transform: translateX(-50%); /* Centers the table horizontally */
-      border-top: 2px solid black;
+      transform: translateX(-50%);
       border-collapse: collapse;
+      border-top: 2px solid #178A94;
+      background-color: transparent;
+    }
+
+    .instructors-table caption {
+      font-weight: 700;
+      font-size: 22px;
+      color: #178A94;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
     }
 
     .instructors-table td {
-      padding: 15px; /* Reduced padding to make cells tighter */
-      text-align: center; /* Center the content inside the cells */
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 18px;
+      color: #2B374A;
+      border: none;
     }
 
     .instructors-table img {
       height: 150px;
-      margin-left: 5px; /* Optional: small margin between image and name */
+      border-radius: 8px;
     }
   </style></head><body>`;
 

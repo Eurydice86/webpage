@@ -6,11 +6,10 @@ body {
     font-family: 'Merriweather', serif;
     margin: 0;
     padding: 0;
-    background-color: #FCF5D8; /* Light pastel yellow */
-    color: #2B374A; /* Deep navy text */
-    font-size: 18px; /* Slightly larger base font */
-    line-height: 1.7; /* Better readability */
-
+    background-color: #FCF5D8;
+    color: #2B374A;
+    font-size: 18px;
+    line-height: 1.7;
 }
 
 /* Faint watermark overlay */
@@ -41,8 +40,9 @@ h1 {
     color: #2B374A;
     text-align: center;
     font-weight: 700;
-    font-size: 30px;
-    margin-bottom: 20px;
+    font-size: 48px;
+    margin: 0 0 30px 0;
+    letter-spacing: -0.5px;
 }
 
 /* Subheadings */
@@ -51,8 +51,9 @@ h2, h3, h4, h5, h6 {
     color: #178A94;
     text-align: center;
     font-weight: 700;
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 28px;
+    margin: 0 0 25px 0;
+    letter-spacing: -0.3px;
 }
 
 /* Data section styling */
@@ -80,19 +81,19 @@ table {
     width: auto;
     table-layout: auto;
     border-collapse: collapse;
-    margin-top: 15px;
-    background-color: transparent; /* Transparent background */
-    border: none; /* No outer border */
+    margin-top: 20px;
+    background-color: transparent;
+    border: none;
 }
 
 table th,
 table td {
-    border: none; /* Fully borderless cells */
-    padding: 10px;
+    border: none;
+    padding: 14px 18px;
     text-align: left;
     font-weight: 400;
-    font-size: 22px;
-    background-color: transparent; /* Fully transparent cells */
+    font-size: 20px;
+    background-color: transparent;
     color: #2B374A;
     white-space: nowrap;
 }
@@ -100,19 +101,27 @@ table td {
 /* Table header cells */
 table th {
     font-weight: 700;
-    font-size: 28px;
-    background-color: transparent;
-    color: #2B374A;
+    font-size: 22px;
+    background-color: rgba(24, 138, 148, 0.08);
+    color: #178A94;
+    border-bottom: 2px solid #178A94;
+    padding: 16px 18px;
+}
+
+/* Table rows with subtle separation */
+table tbody tr {
+    border-bottom: 1px solid rgba(43, 55, 74, 0.08);
 }
 
 /* Table captions */
 caption {
     background-color: transparent;
-    color: #2B374A;
+    color: #178A94;
     font-weight: 700;
-    font-size: 20px;
-    text-align: left;
-    margin-bottom: 8px;
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
 }
 
 /* Instructors table positioning */
@@ -146,4 +155,100 @@ caption {
         font-size: 16px;
         padding: 10px;
     }
+}
+
+
+
+/*Board member-cards rendering*/
+
+html, body {
+  width: 1920px;
+  height: 1080px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* no scrolling */
+  font-family: inherit;
+}
+
+.board-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px 20px;
+}
+
+.board-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.board-section h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+  font-size: 52px;
+  width: 100%;
+}
+
+.board-section:nth-child(2) h1 {
+  font-size: 30px;
+  margin-top: 30px;
+}
+
+/* Members grid layout */
+.members-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 60px 30px;
+  width: 100%;
+  justify-items: center;
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+
+.member img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.member-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.member-info h3 {
+  margin: 0;
+  font-size: 26px;
+  color: #2B374A;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.member-info p {
+  margin: 0;
+  font-size: 20px;
+  color: #178A94;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.member.empty {
+  display: none;
 }
