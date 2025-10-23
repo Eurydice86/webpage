@@ -4,9 +4,11 @@ import { renderCompetitionsPage } from "./renderCompetitions.js";
 import { renderWorkshopsPage } from "./renderWorkshops.js";
 import { renderWeaponPage } from "./renderWeapon.js";
 
-const jsonFiles = [
+// Updated files array: etiquette.html is 3rd (index 2)
+const files = [
   "../data/board.json",
   "../data/board.json",
+  "../pages/etiquette.html",
   "../data/competitions.json",
   "../data/workshops.json",
   "../data/EHMS-Tapahtumat_EHMS-Events.json",
@@ -23,41 +25,43 @@ const jsonFiles = [
 let currentIndex = 0;
 
 async function fetchAndUpdateSingle() {
-  const file = jsonFiles[currentIndex];
+  const file = files[currentIndex];
   try {
     const response = await fetch(file, { cache: "no-cache" });
     if (!response.ok) throw new Error(`Failed to load ${file}`);
 
-    const data = await response.json();
-    updateContent(data, currentIndex);
+    let html = "";
+    if (file.endsWith(".json")) {
+      const data = await response.json();
+      html = getRenderedHTML(data, currentIndex);
+    } else if (file.endsWith(".html")) {
+      html = await response.text(); // Load HTML as text
+    }
+
+    document.getElementById("data").innerHTML = html;
   } catch (err) {
     console.error(err);
     document.getElementById("data").textContent = `Error loading ${file}`;
   }
-  currentIndex = (currentIndex + 1) % jsonFiles.length;
+
+  currentIndex = (currentIndex + 1) % files.length;
 }
 
-function updateContent(data, index) {
-  let html = "";
+function getRenderedHTML(data, index) {
   switch (index) {
     case 0:
-      html = renderBoardPage(data);
-      break;
+      return renderBoardPage(data);
     case 1:
-      html = renderEqualityPage(data);
-      break;
-    case 2:
-      html = renderCompetitionsPage(data);
-      break;
-    case 3:
-      html = renderWorkshopsPage(data);
-      break;
+      return renderEqualityPage(data);
+    case 3:  // competitions.json is now index 3
+      return renderCompetitionsPage(data);
+    case 4:  // workshops.json is now index 4
+      return renderWorkshopsPage(data);
     default:
-      html = renderWeaponPage(data);
+      return renderWeaponPage(data);
   }
-  document.getElementById("data").innerHTML = html;
 }
 
-// Loop every 3 seconds
-setInterval(fetchAndUpdateSingle, 3000);
+// Loop every 30 seconds
+setInterval(fetchAndUpdateSingle, 30000);
 fetchAndUpdateSingle();

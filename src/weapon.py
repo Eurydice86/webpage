@@ -54,7 +54,7 @@ def write_weapon_info(weapon):
 
     events, news, instructors = get_weapon_info(weapon)
     events = sorted(events, key=lambda d: d["starts_at"])
-    events = events[:10]
+    events = events[:8]
 
     # for e in events:
     #     with open("data/notifications.txt", "a") as notif_file:
