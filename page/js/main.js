@@ -62,6 +62,6 @@ function getRenderedHTML(data, index) {
   }
 }
 
-// Loop every 30 seconds
-setInterval(fetchAndUpdateSingle, 30000);
+// Loop every 3 seconds
+setInterval(fetchAndUpdateSingle, 3000);
 fetchAndUpdateSingle();

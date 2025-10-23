@@ -1,6 +1,4 @@
 export function renderBoardPage(data) {
-  let html = `<h1>EHMS Hallitus / EHMS Board</h1><table border="1" cellpadding="5" cellspacing="0">`;
-
   const coreRoles = [
     "Puheenjohtaja / Chair",
     "VPJ / Vice Chair",
@@ -8,39 +6,41 @@ export function renderBoardPage(data) {
     "Sihteeri / Secretary",
     "Tiedottaja / Communications"
   ];
+  const deputyRole = "Vara-jäsen / Deputy Member";
 
-  // Main board
-  html += "<tr>";
-  for (const member of Object.values(data.board_members)) {
-    if (coreRoles.includes(member.role)) html += `<td><h2>${member.role}</h2></td>`;
-  }
-  html += "</tr><tr>";
-  for (const member of Object.values(data.board_members)) {
-    if (coreRoles.includes(member.role))
-      html += `<td>${member.member_details.first_name} ${member.member_details.last_name}</td>`;
-  }
-  html += "</tr><tr>";
-  for (const member of Object.values(data.board_members)) {
-    if (coreRoles.includes(member.role))
-      html += `<td><img src="${member.member_details.avatars.original}" height="200"></td>`;
-  }
-  html += "</tr>";
+  const members = Object.values(data.board_members);
 
+  // Core members
+  const coreMembers = coreRoles.map(role => members.find(m => m.role === role) || null);
   // Deputies
-  html += "<tr>";
-  for (const member of Object.values(data.board_members)) {
-    if (member.role === "Vara-jäsen / Deputy Member") html += `<td><h2>${member.role}</h2></td>`;
-  }
-  html += "</tr><tr>";
-  for (const member of Object.values(data.board_members)) {
-    if (member.role === "Vara-jäsen / Deputy Member")
-      html += `<td>${member.member_details.first_name} ${member.member_details.last_name}</td>`;
-  }
-  html += "</tr><tr>";
-  for (const member of Object.values(data.board_members)) {
-    if (member.role === "Vara-jäsen / Deputy Member")
-      html += `<td><img src="${member.member_details.avatars.original}" height="200"></td>`;
-  }
-  html += "</tr></table>";
-  return html;
+  const deputyMembers = members.filter(m => m.role === deputyRole);
+
+  // Helper to render a member
+  const renderMember = (member) =>
+    member
+      ? `<div class="member">
+          <img src="${member.member_details.avatars.original}" alt="${member.member_details.first_name}">
+          <div class="member-info">
+            <h3>${member.member_details.first_name} ${member.member_details.last_name}</h3>
+            <p>${member.role}</p>
+          </div>
+        </div>`
+      : `<div class="member empty"></div>`;
+
+  // Render a section (core or deputies)
+  const renderSection = (membersArray, sectionTitle) => `
+    <section class="board-section">
+      <h1>${sectionTitle}</h1>
+      <div class="members-list">
+        ${membersArray.map(renderMember).join("\n")}
+      </div>
+    </section>
+  `;
+
+  return `
+    <div class="board-container">
+      ${renderSection(coreMembers, "EHMS Hallitus / EHMS Board")}
+      ${renderSection(deputyMembers, "Vara-jäsenet / Deputy Members")}
+    </div>
+  `;
 }
