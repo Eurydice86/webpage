@@ -68,7 +68,7 @@ export function renderWeaponPage(data) {
     }
 
     .instructors-table td {
-      padding: 5px; /* Reduced padding to make cells tighter */
+      padding: 15px; /* Reduced padding to make cells tighter */
       text-align: center; /* Center the content inside the cells */
     }
 

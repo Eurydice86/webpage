@@ -1,29 +1,41 @@
 /* Import the Merriweather font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
 
-
-
+/* Global page styles */
 body {
     font-family: 'Merriweather', serif;
     margin: 0;
     padding: 0;
     background-color: #FCF5D8; /* Light pastel yellow */
     color: #2B374A; /* Deep navy text */
+    font-size: 18px; /* Slightly larger base font */
+    line-height: 1.7; /* Better readability */
+
 }
 
+/* Faint watermark overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('ehms_logo.png'); /* Replace with your image path */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 900px auto;
+    opacity: 0.08; /* Adjust transparency (0.05–0.15 looks best) */
+    z-index: -1; /* Keep behind all content */
+}
+
+/* Content container */
 #content {
     padding: 20px;
     margin: auto;
 }
 
-#logo {
-    margin: 10px 10px;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-}
-
-
+/* Main title */
 h1 {
     font-family: 'Merriweather', serif;
     color: #2B374A;
@@ -33,92 +45,77 @@ h1 {
     margin-bottom: 20px;
 }
 
-h3 {
+/* Subheadings */
+h2, h3, h4, h5, h6 {
     font-family: 'Merriweather', serif;
-    color: ##178A94;
+    color: #178A94;
     text-align: center;
     font-weight: 700;
-    font-size: 32px;
+    font-size: 24px;
     margin-bottom: 20px;
 }
 
+/* Data section styling */
 .data-section {
     margin: 20px 0;
     padding: 15px;
-    #border: 2px solid #D3A77A; /* Warm tan for contrast */
-    #border-radius: 8px;
-    #background: #FFC3A9; /* Soft peachy-pink */
-    color: #2B374A; /* Deep navy text for readability */
+    color: #2B374A;
     font-weight: 400;
+    font-size: 18px;
 }
 
-.data-section h2 {
-    font-family: 'Merriweather', serif;
-    margin: 0 0 10px;
-    font-size: 22px;
-    color: #178A94; /* Teal for section headings */
-    font-weight: 700;
-}
-
-.data-section h3 {
-    font-family: 'Merriweather', serif;
-    margin: 0 0 10px;
-    font-size: 22px;
-    color: #178A94; /* Teal for section headings */
-    font-weight: 700;
-}
-
+/* Paragraph text */
 .data-section p {
     margin: 5px 0;
     color: #2B374A;
     font-weight: 300;
-    line-height: 1.6; /* Improve readability */
+    line-height: 1.7;
+    font-size: 25px;
 }
 
-ul {
-    list-style: square;
-    padding-left: 20px;
-    color: #54938B; /* Calm teal */
-    font-weight: 400;
-}
 
-ul li {
-    color: #D077A2; /* Muted magenta for accents */
-    margin-bottom: 5px;
-}
 
+/* Tables */
 table {
     width: auto;
-    border: none;
+    table-layout: auto;
     border-collapse: collapse;
     margin-top: 15px;
+    background-color: transparent; /* Transparent background */
+    border: none; /* No outer border */
 }
 
 table th,
 table td {
-    border: 0px solid #000000;
+    border: none; /* Fully borderless cells */
     padding: 10px;
     text-align: left;
     font-weight: 400;
+    font-size: 22px;
+    background-color: transparent; /* Fully transparent cells */
+    color: #2B374A;
+    white-space: nowrap;
 }
 
+/* Table header cells */
 table th {
-    background-color: #2B374A; /* Teal header background */
-    color: #FCF5D8; /* White text for good contrast */
     font-weight: 700;
+    font-size: 30px;
+    background-color: transparent;
+    color: #2B374A;
 }
 
+/* Table captions */
 caption {
-    background-color: #2B374A; /* Teal header background */
-    color: #FCF5D8; /* White text for good contrast */
+    background-color: transparent;
+    color: #2B374A;
     font-weight: 700;
+    font-size: 20px;
+    text-align: left;
+    margin-bottom: 8px;
 }
 
-table td {
-    background-color: #FCF5D8; /* Soft pastel yellow cells */
-    color: #2B374A; /* Deep navy text */
-}
-
+/* Instructors table positioning */
 #instructors_table {
     position: absolute;
     bottom: 0px;
@@ -126,7 +123,6 @@ table td {
     left: 0px;
     right: 15px;
 }
-
 
 #instructors_table_cap {
     position: absolute;
@@ -136,3 +132,18 @@ table td {
     right: 15px;
 }
 
+/* Responsive font scaling for smaller screens */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    h2, h3, h4, h5, h6 {
+        font-size: 20px;
+    }
+
+    table th, table td {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
