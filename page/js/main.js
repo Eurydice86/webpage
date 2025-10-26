@@ -66,5 +66,5 @@ function getRenderedHTML(data, index) {
 
 // Loop every 30 seconds
 console.log("Main.js loaded. Starting content rotation...");
-setInterval(fetchAndUpdateSingle, 3000);
+setInterval(fetchAndUpdateSingle, 30000);
 fetchAndUpdateSingle();
