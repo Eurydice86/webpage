@@ -1,4 +1,4 @@
-import { renderBoardPage } from "./renderBoard.js";
+nimport { renderBoardPage } from "./renderBoard.js";
 import { renderEqualityPage } from "./renderEquality.js";
 import { renderCompetitionsPage } from "./renderCompetitions.js";
 import { renderWorkshopsPage } from "./renderWorkshops.js";
@@ -62,6 +62,6 @@ function getRenderedHTML(data, index) {
   }
 }
 
-// Loop every 3 seconds
-setInterval(fetchAndUpdateSingle, 3000);
+// Loop every 30 seconds
+setInterval(fetchAndUpdateSingle, 30000);
 fetchAndUpdateSingle();
