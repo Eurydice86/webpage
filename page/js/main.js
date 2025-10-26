@@ -1,4 +1,4 @@
-nimport { renderBoardPage } from "./renderBoard.js";
+import { renderBoardPage } from "./renderBoard.js";
 import { renderEqualityPage } from "./renderEquality.js";
 import { renderCompetitionsPage } from "./renderCompetitions.js";
 import { renderWorkshopsPage } from "./renderWorkshops.js";
@@ -6,29 +6,30 @@ import { renderWeaponPage } from "./renderWeapon.js";
 
 // Updated files array: etiquette.html is 3rd (index 2)
 const files = [
-  "../data/board.json",
-  "../data/board.json",
-  "../pages/etiquette.html",
-  "../data/competitions.json",
-  "../data/workshops.json",
-  "../data/EHMS-Tapahtumat_EHMS-Events.json",
-  "../data/Bolognalainen-Sivumiekka_Bolognese-Sidesword.json",
-  "../data/Gekiken.json",
-  "../data/Messer.json",
-  "../data/Paini_Wrestling.json",
-  "../data/Saksalainen-Pitkämiekka_German-Longsword.json",
-  "../data/Sapeli_Sabre.json",
-  "../data/Rapiiri_Rapier.json",
-  "../data/Boffaus_Boffering.json"
+  "/data/board.json",
+  "/data/board.json",
+  "/pages/etiquette.html",
+  "/data/competitions.json",
+  "/data/workshops.json",
+  "/data/EHMS-Tapahtumat_EHMS-Events.json",
+  "/data/Bolognalainen-Sivumiekka_Bolognese-Sidesword.json",
+  "/data/Gekiken.json",
+  "/data/Messer.json",
+  "/data/Paini_Wrestling.json",
+  "/data/Saksalainen-Pitkämiekka_German-Longsword.json",
+  "/data/Sapeli_Sabre.json",
+  "/data/Rapiiri_Rapier.json",
+  "/data/Boffaus_Boffering.json"
 ];
 
 let currentIndex = 0;
 
 async function fetchAndUpdateSingle() {
   const file = files[currentIndex];
+  console.log(`Fetching: ${file} (index ${currentIndex})`);
   try {
     const response = await fetch(file, { cache: "no-cache" });
-    if (!response.ok) throw new Error(`Failed to load ${file}`);
+    if (!response.ok) throw new Error(`Failed to load ${file}: ${response.status} ${response.statusText}`);
 
     let html = "";
     if (file.endsWith(".json")) {
@@ -38,10 +39,11 @@ async function fetchAndUpdateSingle() {
       html = await response.text(); // Load HTML as text
     }
 
+    console.log(`Successfully loaded and rendered: ${file}`);
     document.getElementById("data").innerHTML = html;
   } catch (err) {
-    console.error(err);
-    document.getElementById("data").textContent = `Error loading ${file}`;
+    console.error(`Error loading ${file}:`, err);
+    document.getElementById("data").textContent = `Error loading ${file}: ${err.message}`;
   }
 
   currentIndex = (currentIndex + 1) % files.length;
@@ -63,5 +65,6 @@ function getRenderedHTML(data, index) {
 }
 
 // Loop every 30 seconds
-setInterval(fetchAndUpdateSingle, 30000);
+console.log("Main.js loaded. Starting content rotation...");
+setInterval(fetchAndUpdateSingle, 3000);
 fetchAndUpdateSingle();
