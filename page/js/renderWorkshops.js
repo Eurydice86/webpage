@@ -6,7 +6,7 @@ export function renderWorkshopsPage(data) {
     const sDate = new Date(Date.parse(workshop.starts_at)).toDateString();
     const eDate = new Date(Date.parse(workshop.ends_at)).toDateString();
     html += `<div style="width: 100%; padding: 12px 0; text-align: center;">`;
-    html += `<p style="margin: 0; font-size: 30px; color: #2B374A; font-weight: 700;">${workshop.name} <span style="color: #178A94;">- ${sDate} - ${eDate}</span></p>`;
+    html += `<p style="margin: 0; font-size: 30px; color: #FCF5D8; font-weight: 700;">${workshop.name} <span style="color: #FFC3A9;">- ${sDate} - ${eDate}</span></p>`;
     html += `</div>`;
   }
 

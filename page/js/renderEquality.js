@@ -4,7 +4,7 @@ export function renderEqualityPage(data) {
 
   for (const member of Object.values(data.board_members)) {
     if (member.role === "Häirintäyhdyshenkilö / Equality and Harrassment Contact") {
-      html += `<div style="background: rgba(255, 255, 255, 0.5); border-radius: 14px; padding: 45px; box-shadow: 0 4px 15px rgba(43, 55, 74, 0.1); max-width: 600px; text-align: center;">`;
+      html += `<div style="background: rgba(255, 195, 169, 0.15); border-radius: 14px; padding: 45px; box-shadow: 0 4px 15px rgba(255, 195, 169, 0.2); max-width: 600px; text-align: center;">`;
       html += `<img src="${member.member_details.avatars.original}" height="330" style="border-radius: 10px; width: 100%; object-fit: cover; margin-bottom: 30px;">`;
       html += `<h2 style="margin: 15px 0; font-size: 28px;">${member.member_details.first_name} ${member.member_details.last_name}</h2>`;
 

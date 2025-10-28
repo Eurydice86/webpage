@@ -9,7 +9,9 @@ export function renderWeaponPage(data) {
     "Lauantai / Saturday"
   ];
 
-  let html = `<html><head><style>
+  let html = `<html><head>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
     html, body {
       width: 1920px;
       height: 1080px;
@@ -19,9 +21,9 @@ export function renderWeaponPage(data) {
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      font-family: 'Merriweather', serif;
-      background-color: #FCF5D8;
-      color: #2B374A;
+      font-family: 'Merriweather', 'Noto Sans JP', serif;
+      background-color: #2B374A;
+      color: #FCF5D8;
       position: relative;
     }
 
@@ -47,7 +49,7 @@ export function renderWeaponPage(data) {
       text-align: center;
       margin: 0;
       font-weight: 700;
-      color: #2B374A;
+      color: #FFC3A9;
     }
 
     h1 {
@@ -59,7 +61,7 @@ export function renderWeaponPage(data) {
     h2 {
       top: 110px;
       font-size: 28px;
-      color: #178A94;
+      color: #FFC3A9;
     }
 
     .content {
@@ -81,19 +83,19 @@ export function renderWeaponPage(data) {
       text-align: left;
       border: none;
       font-size: 20px;
-      color: #2B374A;
+      color: #FCF5D8;
     }
 
     .events-table th {
       font-weight: 700;
       font-size: 22px;
-      background-color: rgba(24, 138, 148, 0.08);
-      color: #178A94;
-      border-bottom: 2px solid #178A94;
+      background-color: rgba(255, 195, 169, 0.1);
+      color: #FFC3A9;
+      border-bottom: 2px solid #FFC3A9;
     }
 
     .events-table tbody tr {
-      border-bottom: 1px solid rgba(43, 55, 74, 0.08);
+      border-bottom: 1px solid rgba(255, 195, 169, 0.15);
     }
 
     .instructors-table {
@@ -103,14 +105,14 @@ export function renderWeaponPage(data) {
       left: 50%;
       transform: translateX(-50%);
       border-collapse: collapse;
-      border-top: 2px solid #178A94;
+      border-top: 2px solid #FFC3A9;
       background-color: transparent;
     }
 
     .instructors-table caption {
       font-weight: 700;
       font-size: 22px;
-      color: #178A94;
+      color: #FFC3A9;
       margin-bottom: 12px;
       padding-bottom: 8px;
     }
@@ -119,7 +121,7 @@ export function renderWeaponPage(data) {
       padding: 12px 20px;
       text-align: center;
       font-size: 18px;
-      color: #2B374A;
+      color: #FCF5D8;
       border: none;
     }
 
