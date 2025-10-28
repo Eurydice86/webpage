@@ -228,6 +228,7 @@ html, body {
   height: 200px;
   border-radius: 10px;
   object-fit: cover;
+  box-shadow: 0 4px 15px rgba(255, 195, 169, 0.2);
 }
 
 .member-info {

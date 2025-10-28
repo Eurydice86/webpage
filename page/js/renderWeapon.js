@@ -128,6 +128,7 @@ export function renderWeaponPage(data) {
     .instructors-table img {
       height: 150px;
       border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(255, 195, 169, 0.2);
     }
   </style></head><body>`;
 
