@@ -1,1 +1,11 @@
-*/5 * * * * /home/ehms/webpage/connection_and_last_run_time_check.sh
+# Add this line to your crontab (crontab -e)
+# Replace /path/to/webpage with the actual path to your webpage directory
+*/5 * * * * /path/to/webpage/connection_and_last_run_time_check.sh > /tmp/webpage_cron.log 2>&1
+
+# Example with absolute path:
+# */5 * * * * /home/ehms/webpage/connection_and_last_run_time_check.sh > /tmp/webpage_cron.log 2>&1
+
+# To add this to crontab:
+# 1. Run: crontab -e
+# 2. Paste one of the lines above, updating the path
+# 3. Save and exit

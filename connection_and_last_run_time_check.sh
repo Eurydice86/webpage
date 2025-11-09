@@ -8,14 +8,23 @@
 # if a and b are true, it will run the Python scripts
 
 
-INFO_PAGE_PATH="/home/ehms/webpage/"
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+INFO_PAGE_PATH="$SCRIPT_DIR"
+TIMESTAMP_FILE="$INFO_PAGE_PATH/last_run_timestamp.log"
+
+# Create timestamp file if it doesn't exist
+if [ ! -f "$TIMESTAMP_FILE" ]; then
+    mkdir -p "$INFO_PAGE_PATH"
+    date "+%Y-%m-%d %H:%M:%S" > "$TIMESTAMP_FILE"
+fi
 
 # If internet connection is established (ping google, see if there is response)
 if ping -c1 -w5 google.com > /dev/null 2>&1; then
     echo "Connection found"
 
     # Read the last timestamp from the file
-    last_timestamp=$(tail -n 1 /home/ehms/webpage/last_run_timestamp.log)
+    last_timestamp=$(tail -n 1 "$TIMESTAMP_FILE")
 
     if [ -z "$last_timestamp" ]; then
 	echo "No timestamp found in file."
@@ -40,13 +49,26 @@ if ping -c1 -w5 google.com > /dev/null 2>&1; then
 	timestamp=$(date "+%Y-%m-%d %H:%M:%S")
 
    	cd "$INFO_PAGE_PATH"
-	git pull
-	source .venv/bin/activate
-	python main.py
-	deactivate
+	if git pull; then
+	    echo "Git pull successful"
+	else
+	    echo "Warning: Git pull failed, continuing anyway"
+	fi
 
-	# Replace timestamp in the file	
-	echo "$timestamp" > /home/ehms/webpage/last_run_timestamp.log
+	if [ -f .venv/bin/activate ]; then
+	    source .venv/bin/activate
+	    if python main.py; then
+	        echo "Python script executed successfully"
+	    else
+	        echo "Error: Python script failed"
+	    fi
+	    deactivate
+	else
+	    echo "Error: Virtual environment not found at .venv/bin/activate"
+	fi
+
+	# Replace timestamp in the file
+	echo "$timestamp" > "$TIMESTAMP_FILE"
     else
 	echo "It has NOT been more than 12 hours."
     fi

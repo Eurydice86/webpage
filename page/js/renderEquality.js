@@ -3,7 +3,7 @@ export function renderEqualityPage(data) {
   <div style="display: flex; flex-direction: column; align-items: center; margin-top: 35px;">`;
 
   for (const member of Object.values(data.board_members)) {
-    if (member.role === "Häirintäyhdyshenkilö / Equality and Harrassment Contact") {
+    if (member.role === "Häirintäyhdyshenkilö / Equality and Harassment Contact") {
       html += `<div style="background: rgba(255, 195, 169, 0.15); border-radius: 14px; padding: 45px; box-shadow: 0 4px 15px rgba(255, 195, 169, 0.2); max-width: 600px; text-align: center;">`;
       html += `<img src="${member.member_details.avatars.original}" height="330" style="border-radius: 10px; width: 100%; object-fit: cover; margin-bottom: 30px;">`;
       html += `<h2 style="margin: 15px 0; font-size: 28px;">${member.member_details.first_name} ${member.member_details.last_name}</h2>`;
