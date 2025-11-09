@@ -5,21 +5,31 @@ import { renderWorkshopsPage } from "./renderWorkshops.js";
 import { renderWeaponPage } from "./renderWeapon.js";
 
 // Updated files array: etiquette.html is 3rd (index 2)
+// Use relative paths so the app works from any subdirectory
+const getBasePath = () => {
+  // Get the path relative to the current page location
+  const currentPath = window.location.pathname;
+  // Remove trailing filename if it exists
+  return currentPath.substring(0, currentPath.lastIndexOf('/')) + '/';
+};
+
+const basePath = getBasePath();
+
 const files = [
-  "/data/board.json",
-  "/data/board.json",
-  "/pages/etiquette.html",
-  "/data/competitions.json",
-  "/data/workshops.json",
-  "/data/EHMS-Tapahtumat_EHMS-Events.json",
-  "/data/Bolognalainen-Sivumiekka_Bolognese-Sidesword.json",
-  "/data/Gekiken.json",
-  "/data/Messer.json",
-  "/data/Paini_Wrestling.json",
-  "/data/Saksalainen-Pitkämiekka_German-Longsword.json",
-  "/data/Sapeli_Sabre.json",
-  "/data/Rapiiri_Rapier.json",
-  "/data/Boffaus_Boffering.json"
+  basePath + "../data/board.json",
+  basePath + "../data/board.json",
+  basePath + "../pages/etiquette.html",
+  basePath + "../data/competitions.json",
+  basePath + "../data/workshops.json",
+  basePath + "../data/EHMS-Tapahtumat_EHMS-Events.json",
+  basePath + "../data/Bolognalainen-Sivumiekka_Bolognese-Sidesword.json",
+  basePath + "../data/Gekiken.json",
+  basePath + "../data/Messer.json",
+  basePath + "../data/Paini_Wrestling.json",
+  basePath + "../data/Saksalainen-Pitkämiekka_German-Longsword.json",
+  basePath + "../data/Sapeli_Sabre.json",
+  basePath + "../data/Rapiiri_Rapier.json",
+  basePath + "../data/Boffaus_Boffering.json"
 ];
 
 let currentIndex = 0;

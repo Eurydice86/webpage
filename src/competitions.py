@@ -23,21 +23,26 @@ def get_competitions_and_workshops():
 
 
 def write_competitions():
+    try:
+        comps, workshops = get_competitions_and_workshops()
+        comps_dict = {"competitions": comps}
+        workshops_dict = {"workshops": workshops}
 
-    comps, workshops = get_competitions_and_workshops()
-    comps_dict = {"competitions": comps}
-    workshops_dict = {"workshops": workshops}
+        json_out_comps = json.dumps(comps_dict, indent=4)
+        json_out_workshops = json.dumps(workshops_dict, indent=4)
 
-    json_out_comps = json.dumps(comps_dict, indent=4)
-    json_out_workshops = json.dumps(workshops_dict, indent=4)
+        filename = "data/competitions.json"
+        with open(filename, "w") as output_file:
+            output_file.write(json_out_comps)
+        print(f"Successfully wrote competitions data to {filename}")
 
-    filename = "data/competitions.json"
-    with open(filename, "w") as output_file:
-        output_file.write(json_out_comps)
-
-    filename = "data/workshops.json"
-    with open(filename, "w") as output_file:
-        output_file.write(json_out_workshops)
+        filename = "data/workshops.json"
+        with open(filename, "w") as output_file:
+            output_file.write(json_out_workshops)
+        print(f"Successfully wrote workshops data to {filename}")
+    except Exception as e:
+        print(f"Error in write_competitions: {e}")
+        raise
 
 
 

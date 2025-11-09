@@ -1,26 +1,284 @@
+* Overview
+This is a dynamic information dashboard for EHMS (Espoo Historical Martial Arts Society) that displays real-time information about the organization from the MyClub platform and website. The application consists of:
+- **Backend**: Python scripts that fetch data from APIs and store it as JSON files
+- **Frontend**: JavaScript/HTML/CSS web interface that displays the data in a rotating carousel (updates every 30 seconds)
+- **Automation**: Bash script that periodically updates the data via cron jobs
+
+* Requirements
+- Python 3.6 or higher
+- =pip= package manager
+- Bash shell
+- Internet connection (for initial setup and periodic data updates)
+
 * Setup
-- Open a terminal
-- Clone the repository: =git clone git@github.com:Eurydice86/webpage.git=
-- Change the working directory: =cd webpage=
-- Create a virtual environment: =python -m venv .venv=
-- Activate the environment: =source .venv/bin/activate=
-- Install dependencies: =pip install -r requirements.txt=
-- Download the .env file from the EHMS 1password vault and put it in the root ("webpage") directory
-- Start a local http server: =python -m http.server=
-- Open a web browser and navigate to =localhost:8000/page=
 
-* Updates
-The info displayed is updated from MyClub and the EHMS website.
-The script =connection_and_last_run_time_check.sh= checks for an available internet connection; if it finds one, it updates the information every 12 hours, and saves it to local files, so that the info can be displayed even if there is no connection available. It also runs =git pull= to get the latest version of the scripts, in case there have been modifications.
+** Step 1: Clone the Repository
+#+BEGIN_SRC bash
+git clone git@github.com:Eurydice86/webpage.git
+cd webpage
+#+END_SRC
 
-* Scheduling
-In order to run the script periodically, create a cron job on the machine that runs the aforementioned script: =*/5 * * * * /home/ehms/webpage/connection_and_last_run_time_check.sh=
+** Step 2: Create Virtual Environment
+#+BEGIN_SRC bash
+python -m venv .venv
+source .venv/bin/activate
+#+END_SRC
 
-* Maintenance
-Remember to keep the machine up to date (=sudo apt update=, followed by =sudo apt upgrade= every once in a while)
+** Step 3: Install Dependencies
+#+BEGIN_SRC bash
+pip install -r requirements.txt
+#+END_SRC
 
-* Restart after something has broken / the laptop was turned off
-- Change the working directory: =cd webpage=
-- Activate the virtual environment: =source .venv/bin/activate=
-- Start a local http server: =python -m http.server=
-- Open a web browser and navigate to =localhost:8000/page=
+** Step 4: Configure Environment Variables
+The application requires a MyClub API token to fetch board, events, and instructor data.
+
+1. Copy the example environment file:
+   #+BEGIN_SRC bash
+   cp .env.example .env
+   #+END_SRC
+
+2. Edit =.env= and add your configuration:
+   #+BEGIN_SRC
+   MC_TOKEN=your_myclub_api_token_here
+   EQUALITY_PERSON_EMAIL=contact@ehms.fi
+   EQUALITY_PERSON_PHONE=+358 123 456 789
+   #+END_SRC
+
+   - **MC_TOKEN**: Get this from your MyClub account settings. This is required for the application to work.
+   - **EQUALITY_PERSON_EMAIL**: Email for the equality/harassment contact person
+   - **EQUALITY_PERSON_PHONE**: Phone number for the equality/harassment contact person
+
+⚠️ **Never commit the .env file to git** - it contains sensitive credentials.
+
+** Step 5: Test the Setup
+Generate the initial data files:
+#+BEGIN_SRC bash
+python main.py
+#+END_SRC
+
+You should see output like:
+#+BEGIN_SRC
+✓ Environment variables validated
+✓ Created data directory
+Running weapon data collection...
+✓ Weapon data collection completed
+✓ Board data collection completed
+✓ Competitions data collection completed
+
+✓ All data collections completed successfully
+#+END_SRC
+
+If you get errors about missing MC_TOKEN, make sure you've added it to your .env file.
+
+** Step 6: Start the Web Server
+#+BEGIN_SRC bash
+python -m http.server
+#+END_SRC
+
+Open a web browser and navigate to: =localhost:8000/page=
+
+The page will display different content sections every 30 seconds automatically.
+
+To use a different port (e.g., if 8000 is already in use):
+#+BEGIN_SRC bash
+python -m http.server 8080
+#+END_SRC
+Then navigate to =localhost:8080/page=
+
+* How It Works
+
+** Data Collection
+The backend modules collect data from:
+- **MyClub API** (=https://ehms.myclub.fi/api/=): Board members, events, competitions, workshops, instructors
+- **EHMS Website** (=https://ehms.fi/=): News articles and announcements
+
+Data is stored as JSON files in the =data/= directory:
+- =board.json=: Board member information
+- =competitions.json=: Competition events
+- =workshops.json=: Workshop events
+- =EHMS-Tapahtumat_EHMS-Events.json= and weapon-specific files: Events by discipline
+
+** Frontend Display
+The JavaScript frontend (=page/js/main.js=) rotates through ~14 different content sections every 30 seconds, showing:
+1. Board members (with photos and roles)
+2. Equality/harassment contact information
+3. Competitions
+4. Workshops
+5. General EHMS events
+6. Events for each martial discipline (Longsword, Rapier, Sidesword, Japanese fencing, etc.)
+
+** Offline Mode
+If the internet connection is lost, the application displays the last cached data from the JSON files, so the display continues to work even without network connectivity.
+
+* Periodic Updates
+
+** Automatic Updates
+The script =connection_and_last_run_time_check.sh= handles automatic data updates:
+- Checks for internet connectivity
+- Updates data every 12 hours (if internet is available)
+- Runs =git pull= to get the latest scripts
+- Uses relative paths, so it works from any directory
+
+To set up automatic updates with cron:
+
+1. First, find the full path to your webpage directory:
+   #+BEGIN_SRC bash
+   pwd  # Run this in your webpage directory and copy the output
+   #+END_SRC
+
+2. Edit your crontab:
+   #+BEGIN_SRC bash
+   crontab -e
+   #+END_SRC
+
+3. Add this line (replace =/path/to/webpage= with your actual path):
+   #+BEGIN_SRC
+   */5 * * * * /path/to/webpage/connection_and_last_run_time_check.sh > /tmp/webpage_cron.log 2>&1
+   #+END_SRC
+
+4. Save and exit (in nano: Ctrl+X, Y, Enter)
+
+The script will now run every 5 minutes, but only update data if:
+- Internet connection is available, AND
+- More than 12 hours have passed since the last update
+
+To check if the cron job is running:
+#+BEGIN_SRC bash
+tail -f /tmp/webpage_cron.log
+#+END_SRC
+
+** Manual Updates
+To manually fetch fresh data:
+#+BEGIN_SRC bash
+source .venv/bin/activate
+python main.py
+deactivate
+#+END_SRC
+
+* Troubleshooting
+
+** Error: "MC_TOKEN environment variable not set"
+- **Cause**: The .env file is missing or doesn't contain MC_TOKEN
+- **Solution**:
+  1. Make sure you've created .env from .env.example
+  2. Add your MyClub API token to the MC_TOKEN variable
+  3. Run =python main.py= again
+
+** Error: "Failed to load /data/board.json"
+- **Cause**: The data files haven't been generated yet
+- **Solution**: Run =python main.py= to generate the initial data files
+
+** Web page shows "Error loading" messages
+- **Cause**: Either data files don't exist, or the web server can't access them
+- **Solution**:
+  1. Make sure you ran =python main.py= successfully
+  2. Check that =data/= directory exists and contains JSON files
+  3. Restart the web server (Ctrl+C, then run =python -m http.server= again)
+
+** Nothing appears on the web page
+- **Cause**: JavaScript is not loading or the page is blank
+- **Solution**:
+  1. Open browser developer console (F12 or right-click → Inspect)
+  2. Check for errors in the Console tab
+  3. Make sure you're accessing =localhost:8000/page= (not just =localhost:8000=)
+
+** Cron job not running
+- **Cause**: Path is incorrect or script doesn't have execute permissions
+- **Solution**:
+  1. Make sure the path in crontab is correct: =which connection_and_last_run_time_check.sh= should show the full path
+  2. Check permissions: =ls -l connection_and_last_run_time_check.sh=
+  3. It should show =rwxr-xr-x= (executable). If not, run: =chmod +x connection_and_last_run_time_check.sh=
+  4. Check the cron log: =tail /tmp/webpage_cron.log=
+
+** API calls failing with "Connection refused"
+- **Cause**: EHMS MyClub API or website is temporarily unavailable
+- **Solution**:
+  - This is normal - the application will use cached data
+  - Data will be updated once the API is available again
+  - Check =https://ehms.myclub.fi= to see if the API is running
+
+* System Maintenance
+
+** Keep the system updated
+Run these commands periodically (especially before deploying):
+#+BEGIN_SRC bash
+sudo apt update
+sudo apt upgrade
+#+END_SRC
+
+** Check Python dependencies
+To ensure all required packages are up to date:
+#+BEGIN_SRC bash
+source .venv/bin/activate
+pip install -r requirements.txt --upgrade
+deactivate
+#+END_SRC
+
+** View update logs
+Check when data was last successfully updated:
+#+BEGIN_SRC bash
+tail -f /tmp/webpage_cron.log
+#+END_SRC
+
+* Restart After Machine Reboot or Errors
+
+If the machine restarts or something breaks:
+
+1. Open a terminal and navigate to the webpage directory:
+   #+BEGIN_SRC bash
+   cd /path/to/webpage
+   #+END_SRC
+
+2. Activate the virtual environment:
+   #+BEGIN_SRC bash
+   source .venv/bin/activate
+   #+END_SRC
+
+3. Start the web server:
+   #+BEGIN_SRC bash
+   python -m http.server
+   #+END_SRC
+
+4. Open your browser to =localhost:8000/page=
+
+The cron job will also resume automatically once the machine is back online.
+
+* File Structure
+#+BEGIN_SRC
+webpage/
+├── page/                          # Frontend web application
+│   ├── index.html                 # Main HTML file
+│   ├── style.css                  # Styling
+│   ├── js/                        # JavaScript modules
+│   │   ├── main.js                # Main carousel logic
+│   │   ├── renderBoard.js         # Board member display
+│   │   ├── renderEquality.js      # Equality contact display
+│   │   ├── renderCompetitions.js  # Competitions display
+│   │   ├── renderWeapon.js        # Weapon/discipline display
+│   │   └── renderWorkshops.js     # Workshops display
+│   ├── pages/                     # Static HTML pages
+│   └── ehms_logo.png              # EHMS logo watermark
+├── src/                           # Backend Python modules
+│   ├── board.py                   # Fetch board member data
+│   ├── competitions.py            # Fetch competition/workshop data
+│   ├── upcoming_events.py         # Fetch event data
+│   ├── instructors.py             # Fetch instructor data
+│   ├── weapon.py                  # Fetch discipline-specific data
+│   ├── news.py                    # Fetch news articles
+│   └── notify.py                  # Utility script
+├── data/                          # Generated JSON data files (created by main.py)
+├── main.py                        # Entry point for data collection
+├── connection_and_last_run_time_check.sh  # Cron script for periodic updates
+├── crontab.txt                    # Example cron job configuration
+├── .env.example                   # Example environment variables
+├── .env                           # Your environment variables (DO NOT COMMIT)
+├── requirements.txt               # Python dependencies
+└── readme.org                     # This file
+
+* Support & Troubleshooting
+If you encounter issues not covered in the troubleshooting section:
+1. Check the error messages printed to the terminal
+2. Review the cron log: =tail /tmp/webpage_cron.log=
+3. Try running =python main.py= manually to see detailed error messages
+4. Ensure all environment variables are set correctly in =.env=
+5. Verify internet connection and that EHMS APIs are accessible
