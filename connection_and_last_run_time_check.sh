@@ -9,7 +9,6 @@
 
 
 INFO_PAGE_PATH="/home/ehms/webpage/"
-MYCLUB_UPDATE_PATH="/home/ehms/ehms_mc_api/"
 
 # If internet connection is established (ping google, see if there is response)
 if ping -c1 -w5 google.com > /dev/null 2>&1; then
@@ -39,13 +38,6 @@ if ping -c1 -w5 google.com > /dev/null 2>&1; then
 	echo "It has been more than 12 hours."
 	# Get current timestamp in format YYYY-MM-DD HH:MM:SS
 	timestamp=$(date "+%Y-%m-%d %H:%M:%S")
-
-	cd "$MYCLUB_UPDATE_PATH"
-	git pull
-	source .venv/bin/activate
-	python src/initialise.py
-	deactivate
-	#
 
    	cd "$INFO_PAGE_PATH"
 	git pull
