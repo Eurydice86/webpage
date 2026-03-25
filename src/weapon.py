@@ -4,6 +4,7 @@ from src import news
 
 import os
 import json
+from tqdm import tqdm
 
 
 def weapon_to_group(weapon):
@@ -38,33 +39,28 @@ def weapon_to_tag(weapon):
     return conversion_table[weapon]
 
 
-def get_weapon_info(weapon):
+def get_weapon_info(weapon, all_news):
     group = weapon_to_group(weapon)
     weapon_events = upcoming_events.upcoming_events(group, days=15)
     weapon_instructors = instructors.instructors_info(group)
 
     tag = weapon_to_tag(weapon)
-    # weapon_news = ""
-    weapon_news = news.get_news(tag)
+    weapon_news = news.filter_news(all_news, tag)
 
     return weapon_events, weapon_news, weapon_instructors
 
 
-def write_weapon_info(weapon):
+def write_weapon_info(weapon, all_news):
 
-    events, news, instructors = get_weapon_info(weapon)
+    events, news_items, instructors_list = get_weapon_info(weapon, all_news)
     events = sorted(events, key=lambda d: d["starts_at"])
     events = events[:8]
-
-    # for e in events:
-    #     with open("data/notifications.txt", "a") as notif_file:
-    #         notif_file.write(f"{e.get("ends_at")}\n")
 
     events_news_dict = {
         "weapon": weapon,
         "events": events,
-        "news": news,
-        "instructors": instructors,
+        "news": news_items,
+        "instructors": instructors_list,
     }
 
     json_out = json.dumps(events_news_dict, indent=4)
@@ -81,12 +77,17 @@ def reset_notifications():
 
 def all_weapons():
     # reset_notifications()
-    write_weapon_info("Bolognalainen Sivumiekka / Bolognese Sidesword")
-    write_weapon_info("Gekiken")
-    write_weapon_info("Messer")
-    write_weapon_info("Paini / Wrestling")
-    write_weapon_info("Saksalainen Pitkämiekka / German Longsword")
-    write_weapon_info("Sapeli / Sabre")
-    write_weapon_info("Rapiiri / Rapier")
-    write_weapon_info("Boffaus / Boffering")
-    write_weapon_info("EHMS Tapahtumat / EHMS Events")
+    all_news = news.fetch_all_news()
+    weapons = [
+        "Bolognalainen Sivumiekka / Bolognese Sidesword",
+        "Gekiken",
+        "Messer",
+        "Paini / Wrestling",
+        "Saksalainen Pitkämiekka / German Longsword",
+        "Sapeli / Sabre",
+        "Rapiiri / Rapier",
+        "Boffaus / Boffering",
+        "EHMS Tapahtumat / EHMS Events",
+    ]
+    for w in tqdm(weapons, desc="Weapons", unit="weapon"):
+        write_weapon_info(w, all_news)

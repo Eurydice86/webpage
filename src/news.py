@@ -4,22 +4,24 @@ from bs4 import BeautifulSoup
 from requests.auth import HTTPBasicAuth
 
 
-def get_news(tag=None):
+def fetch_all_news():
     url = "https://ehms.fi/uutiset/?format=json-pretty"
     page = requests.get(url)
 
     if page.status_code == 200:
         page = json.loads(page.content)
 
-    news_list = []
-    news = page["items"]
-    for n in news:
-        if tag:
-            if tag in n["tags"]:
-                news_list.append(n)
-        else:
-            news_list.append(n)
-    return news_list
+    return page["items"]
+
+
+def filter_news(all_news, tag=None):
+    if not tag:
+        return list(all_news)
+    return [n for n in all_news if tag in n["tags"]]
+
+
+def get_news(tag=None):
+    return filter_news(fetch_all_news(), tag)
 
 
 if __name__ == "__main__":
