@@ -1,17 +1,23 @@
 export function renderBoardPage(data) {
   const coreRoles = [
-    "Puheenjohtaja / Chair",
-    "VPJ / Vice Chair",
-    "Taloudenhoitaja / Treasurer",
-    "Sihteeri / Secretary",
-    "Tiedottaja / Communications"
+      "Puheenjohtaja / Chair",
+      "VPJ / Vice Chair",
+      "Taloudenhoitaja / Treasurer",
+      "Sihteeri / Secretary",
+      "Tiedottaja / Communications",
+      "Jäsen / Member",
   ];
   const deputyRole = "Vara-jäsen / Deputy Member";
 
   const members = Object.values(data.board_members);
 
   // Core members
-  const coreMembers = coreRoles.map(role => members.find(m => m.role === role) || null);
+  const coreMembers = coreRoles.flatMap(role => {
+  if (role === "Jäsen / Member") {
+      return members.filter(m => m.role === role);
+  }
+      return members.find(m => m.role === role) || null;
+  });
   // Deputies
   const deputyMembers = members.filter(m => m.role === deputyRole);
 

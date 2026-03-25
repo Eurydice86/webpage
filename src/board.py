@@ -8,12 +8,13 @@ load_dotenv()
 
 def board():
     board_members = {
-        "Puheenjohtaja / Chair": "347",
-        "VPJ / Vice Chair": "782",
+        "Puheenjohtaja / Chair": "782",
+        # "VPJ / Vice Chair": "",
         "Taloudenhoitaja / Treasurer": "101",
-        "Sihteeri / Secretary": "882",
-        "Tiedottaja / Communications": ["100"],
-        "Vara-jäsen / Deputy Member": ["308", "647", "504"],
+        # "Sihteeri / Secretary": "",
+        # "Tiedottaja / Communications": ["100"],
+        "Jäsen / Member": ["878", "504", "882"],
+        "Vara-jäsen / Deputy Member": ["308", "862", "1363"],
         "Häirintäyhdyshenkilö / Equality and Harassment Contact": ["718"],
     }
 
