@@ -4,6 +4,7 @@ from src import competitions
 
 import os
 from dotenv import load_dotenv
+from tqdm import tqdm
 
 
 def validate_environment():
@@ -37,19 +38,15 @@ def main():
             os.makedirs("data")
             print("✓ Created data directory")
 
-        print("Running weapon data collection...")
-        weapon.all_weapons()
-        print("✓ Weapon data collection completed")
+        steps = [
+            ("Weapons", weapon.all_weapons),
+            ("Board", board.write_board_info),
+            ("Competitions", competitions.write_competitions),
+        ]
+        for name, func in tqdm(steps, desc="Overall progress", unit="step"):
+            func()
 
-        print("Running board data collection...")
-        board.write_board_info()
-        print("✓ Board data collection completed")
-
-        print("Running competitions data collection...")
-        competitions.write_competitions()
-        print("✓ Competitions data collection completed")
-
-        print("\n✓ All data collections completed successfully")
+        tqdm.write("\n✓ All data collections completed successfully")
 
     except ValueError as e:
         print(f"\n✗ Configuration Error: {e}")

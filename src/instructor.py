@@ -4,17 +4,31 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-def instructor(member_id, group):
-    myclub_token = os.getenv("MC_TOKEN")
-    headers = {"X-myClub-token": myclub_token}
-    base_url = "https://ehms.myclub.fi/api/"
-    event_url = "members/" + member_id
-    full_url = base_url + event_url
-    response = requests.get(full_url, headers=headers)
-    if response.status_code == 404:
-        return (None, None)
+_member_cache = {}
 
-    content = json.loads(response.content)
+
+def clear_cache():
+    _member_cache.clear()
+
+
+def instructor(member_id, group):
+    if member_id in _member_cache:
+        content = _member_cache[member_id]
+        if content is None:
+            return (None, None)
+    else:
+        myclub_token = os.getenv("MC_TOKEN")
+        headers = {"X-myClub-token": myclub_token}
+        base_url = "https://ehms.myclub.fi/api/"
+        event_url = "members/" + member_id
+        full_url = base_url + event_url
+        response = requests.get(full_url, headers=headers)
+        if response.status_code == 404:
+            _member_cache[member_id] = None
+            return (None, None)
+
+        content = json.loads(response.content)
+        _member_cache[member_id] = content
 
     m = content.get("member")
     for gr in m.get("memberships"):

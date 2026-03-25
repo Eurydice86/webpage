@@ -2,6 +2,7 @@ import requests
 import json
 from dotenv import load_dotenv
 import os
+from tqdm import tqdm
 
 load_dotenv()
 
@@ -26,7 +27,7 @@ def board():
     base_url = "https://ehms.myclub.fi/api/"
 
     board_roles = []
-    for role, id in board_members.items():
+    for role, id in tqdm(board_members.items(), desc="Board members", unit="role"):
         if not isinstance(id, list):
             try:
                 member_url = f"members/{id}"
