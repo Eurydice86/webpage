@@ -57,6 +57,7 @@ if ping -c1 -w5 google.com > /dev/null 2>&1; then
 
 	if [ -f .venv/bin/activate ]; then
 	    source .venv/bin/activate
+	    pip install -r requirements.txt -q
 	    if python main.py; then
 	        echo "Python script executed successfully"
 	    else
