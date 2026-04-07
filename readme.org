@@ -26,7 +26,7 @@ source .venv/bin/activate
 
 ** Step 3: Install Dependencies
 #+BEGIN_SRC bash
-pip install -r requirements.txt
+pip install .
 #+END_SRC
 
 ** Step 4: Configure Environment Variables
@@ -209,7 +209,7 @@ sudo apt upgrade
 To ensure all required packages are up to date:
 #+BEGIN_SRC bash
 source .venv/bin/activate
-pip install -r requirements.txt --upgrade
+pip install . --upgrade
 deactivate
 #+END_SRC
 
@@ -274,7 +274,7 @@ webpage/
 ├── crontab.txt                    # Example cron job configuration
 ├── .env.example                   # Example environment variables
 ├── .env                           # Your environment variables (DO NOT COMMIT)
-├── requirements.txt               # Python dependencies
+├── pyproject.toml                 # Python dependencies
 └── readme.org                     # This file
 
 * Support & Troubleshooting
