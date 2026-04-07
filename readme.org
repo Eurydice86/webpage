@@ -59,11 +59,10 @@ python main.py
 You should see output like:
 #+BEGIN_SRC
 ✓ Environment variables validated
-✓ Created data directory
-Running weapon data collection...
-✓ Weapon data collection completed
-✓ Board data collection completed
-✓ Competitions data collection completed
+Overall progress: 100%|██████████| 3/3 [00:16<00:00,  5.64s/step]
+Successfully wrote board data to data/board.json
+Successfully wrote competitions data to data/competitions.json
+Successfully wrote workshops data to data/workshops.json
 
 ✓ All data collections completed successfully
 #+END_SRC
@@ -256,17 +255,20 @@ webpage/
 │   │   ├── renderCompetitions.js  # Competitions display
 │   │   ├── renderWeapon.js        # Weapon/discipline display
 │   │   └── renderWorkshops.js     # Workshops display
-│   ├── pages/                     # Static HTML pages
 │   └── ehms_logo.png              # EHMS logo watermark
+├── pages/                         # Static HTML pages
 ├── src/                           # Backend Python modules
 │   ├── board.py                   # Fetch board member data
 │   ├── competitions.py            # Fetch competition/workshop data
 │   ├── upcoming_events.py         # Fetch event data
+│   ├── instructor.py              # Fetch instructor data
 │   ├── instructors.py             # Fetch instructor data
+│   ├── groups.py                  # Fetch group data
 │   ├── weapon.py                  # Fetch discipline-specific data
 │   ├── news.py                    # Fetch news articles
 │   └── notify.py                  # Utility script
 ├── data/                          # Generated JSON data files (created by main.py)
+├── board_members.json             # Board role-to-member-ID mapping — update this when the board changes
 ├── main.py                        # Entry point for data collection
 ├── connection_and_last_run_time_check.sh  # Cron script for periodic updates
 ├── crontab.txt                    # Example cron job configuration
