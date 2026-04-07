@@ -12,6 +12,12 @@ This is a dynamic information dashboard for EHMS (Espoo Historical Martial Arts 
 
 * Setup
 
+An installation script is provided to automate Steps 2–4 and cron job setup:
+#+BEGIN_SRC bash
+bash install.sh
+#+END_SRC
+It will create the virtual environment, install dependencies, prompt you for =.env= values, and optionally register the cron job. You can still follow the manual steps below if you prefer.
+
 ** Step 1: Clone the Repository
 #+BEGIN_SRC bash
 git clone git@github.com:Eurydice86/webpage.git
@@ -271,6 +277,7 @@ webpage/
 ├── board_members.json             # Board role-to-member-ID mapping — update this when the board changes
 ├── main.py                        # Entry point for data collection
 ├── connection_and_last_run_time_check.sh  # Cron script for periodic updates
+├── install.sh                     # Automated installation script
 ├── crontab.txt                    # Example cron job configuration
 ├── .env.example                   # Example environment variables
 ├── .env                           # Your environment variables (DO NOT COMMIT)
