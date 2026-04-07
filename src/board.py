@@ -7,17 +7,12 @@ from tqdm import tqdm
 load_dotenv()
 
 
+BOARD_MEMBERS_FILE = "board_members.json"
+
+
 def board():
-    board_members = {
-        "Puheenjohtaja / Chair": "782",
-        # "VPJ / Vice Chair": "",
-        "Taloudenhoitaja / Treasurer": "101",
-        # "Sihteeri / Secretary": "",
-        # "Tiedottaja / Communications": ["100"],
-        "Jäsen / Member": ["878", "504", "882"],
-        "Vara-jäsen / Deputy Member": ["308", "862", "1363"],
-        "Häirintäyhdyshenkilö / Equality and Harassment Contact": ["718"],
-    }
+    with open(BOARD_MEMBERS_FILE, "r", encoding="utf-8") as f:
+        board_members = json.load(f)
 
     myclub_token = os.getenv("MC_TOKEN")
     if not myclub_token:
