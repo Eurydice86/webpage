@@ -70,7 +70,7 @@ async function checkForReload() {
 }
 
 console.log("Main.js loaded. Starting content rotation...");
-setInterval(fetchAndUpdateSingle, 5000);
-setInterval(checkForReload, 3000);
+setInterval(fetchAndUpdateSingle, 30000);
+setInterval(checkForReload, 10000);
 fetchAndUpdateSingle();
 checkForReload();
