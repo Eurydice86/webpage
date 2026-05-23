@@ -58,13 +58,7 @@ export function renderBoardPage(data) {
   return `
     <div class="board-container">
       ${renderSection(coreMembers, "EHMS Hallitus / EHMS Board")}
-      <section class="board-section">
-        <h1>Vara-jäsenet / Deputy Members</h1>
-        <div class="members-list">
-          ${deputyMembers.map(renderMember).join("\n")}
-          ${renderEqualityMember(equalityMember)}
-        </div>
-      </section>
+      ${renderSection(deputyMembers, "Vara-jäsenet / Deputy Members")}
     </div>
   `;
 }

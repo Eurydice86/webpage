@@ -1,7 +1,7 @@
 import { renderBoardPage } from "./renderBoard.js";
 import { renderEventsPage } from "./renderEvents.js";
+import { renderEtiquetteHarassmentPage } from "./renderEtiquetteHarassment.js";
 
-// Updated files array: etiquette.html is 3rd (index 2)
 // Use relative paths so the app works from any subdirectory
 const getBasePath = () => {
   // Get the path relative to the current page location
@@ -14,6 +14,7 @@ const basePath = getBasePath();
 
 const files = [
   basePath + "../data/board.json",
+  { type: "etiquette-harassment", path: basePath + "../data/board.json" },
   { type: "events", paths: [basePath + "../data/competitions.json", basePath + "../data/workshops.json"] }
 ];
 
@@ -29,6 +30,10 @@ async function fetchAndUpdateSingle() {
       const [compRes, workRes] = await Promise.all(file.paths.map(p => fetch(p, { cache: "no-cache" })));
       if (!compRes.ok || !workRes.ok) throw new Error("Failed to load events data");
       html = renderEventsPage(await compRes.json(), await workRes.json());
+    } else if (file?.type === "etiquette-harassment") {
+      const res = await fetch(file.path, { cache: "no-cache" });
+      if (!res.ok) throw new Error(`Failed to load ${file.path}`);
+      html = renderEtiquetteHarassmentPage(await res.json());
     } else {
       console.log(`Fetching: ${file} (index ${currentIndex})`);
       const response = await fetch(file, { cache: "no-cache" });
@@ -59,13 +64,16 @@ function getRenderedHTML(data, index) {
   }
 }
 
-let lastModified = null;
+let lastModifiedKey = null;
 async function checkForReload() {
   try {
-    const res = await fetch("js/main.js", { method: "HEAD", cache: "no-cache" });
-    const modified = res.headers.get("Last-Modified");
-    if (lastModified && modified !== lastModified) location.reload();
-    lastModified = modified;
+    const dirRes = await fetch("js/", { cache: "no-cache" });
+    const html = await dirRes.text();
+    const jsFiles = [...html.matchAll(/href="([^"]+\.js)"/g)].map(m => m[1]);
+    const responses = await Promise.all(jsFiles.map(f => fetch(`js/${f}`, { method: "HEAD", cache: "no-cache" })));
+    const key = jsFiles.join(",") + "|" + responses.map(r => r.headers.get("Last-Modified")).join("|");
+    if (lastModifiedKey && key !== lastModifiedKey) location.reload();
+    lastModifiedKey = key;
   } catch (_) {}
 }
 
